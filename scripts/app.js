@@ -587,7 +587,7 @@ document.addEventListener('keydown', (e) => {
     navigateTo('settings');
   }
 
-  // Focus search: /
+  // Focus search /
   if (e.key === '/' && !e.ctrlKey && !e.metaKey && document.activeElement.tagName !== 'INPUT') {
     e.preventDefault();
     document.getElementById('searchInput')?.focus();
@@ -640,5 +640,5 @@ if (pageId === 'dashboard') {
   renderTable(); 
   renderCategoryFilter(); 
   renderDashboardWelcome();
-  renderCharts(); // ADD THIS
+  renderCharts();
 }
