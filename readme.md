@@ -1,33 +1,34 @@
-# 💰 Rocel Student Finance Tracker
+# 💰 Student Finance Tracker
 
-A clean, modern, and responsive Personal Finance Tracker built with Vanilla JavaScript.
-This application helps users manage income and expenses, set a budget cap, and configure currency conversion — all with persistent local storage.
+## 🌐 Repository & Live Demo
 
----
+**GitHub Repository:**
+[https://github.com/Success85/student_finance_tracker](https://github.com/Success85/student_finance_tracker)
 
-# 📌 Project Overview
+**GitHub Pages Deployment:**
+[https://success85.github.io/student_finance_tracker/](https://success85.github.io/student_finance_tracker/)
 
-The Personal Finance Tracker is a fully client-side web application designed to help users:
-
-* Track income and expenses
-* Monitor total balance
-* Set and manage a spending budget
-* Configure currency display and conversion
-* Persist data using LocalStorage
-
-The project follows a modular JavaScript architecture and emphasizes clean UI, accessibility, and structured code organization.
+> ⚠️ Note: The project is deployed using GitHub Pages as required. No Netlify, Heroku, Render, or other platforms are used.
 
 ---
 
-# 🚀 Features
+# 🎯 Chosen Theme
+
+**Theme:** Personal Student Finance Management System
+
+This application is designed to help students track income and expenses, manage a spending budget, and configure currency display and conversion. The system focuses on usability, accessibility, clean architecture, and robust input validation using regular expressions.
+
+---
+
+# 🚀 Features List
 
 ## 1️⃣ Transaction Management
 
-* Add income transactions
-* Add expense transactions
-* Categorize transactions
+* Add income and expense transactions
 * Delete transactions
-* Automatically calculate:
+* Categorize transactions
+* Real-time dashboard updates
+* Automatic calculation of:
 
   * Total Income
   * Total Expenses
@@ -35,56 +36,217 @@ The project follows a modular JavaScript architecture and emphasizes clean UI, a
 
 ## 2️⃣ Budget Cap System
 
-* Set a spending limit
-* Automatically compare expenses to budget
-* Clear budget functionality
-* Real-time UI updates
+* Set a maximum spending limit
+* Compare expenses against budget
+* Clear budget option
+* Visual feedback for overspending
 
 ## 3️⃣ Profile Settings
 
 * User name validation
-* Persistent name storage
+* Persistent name storage using LocalStorage
 * Personalized dashboard greeting
 
 ## 4️⃣ Currency Display & Conversion
 
 * Select base currency (RWF, USD, NGN)
 * Convert base currency to one alternate currency
-* Manual exchange rate input
+* Manual exchange rate configuration
 * Quick currency converter
-* Automatic UI refresh after saving settings
+* Dynamic UI update after saving settings
 
-## 5️⃣ Form Validation
+## 5️⃣ Data Persistence
 
-* Name validation
-* Budget validation
-* Currency rate validation
-* Accessible error messaging
+* All transactions stored in LocalStorage
+* Settings preserved across sessions
+* Seed data import support
 
-## 6️⃣ User Experience Enhancements
+## 6️⃣ Import / Export
 
-* Toast notifications
-* Status messages
-* Accessible ARIA live regions
-* Clean, minimal UI design
+* Import transactions from JSON
+* Export transactions to JSON
+* Supports edge cases and special characters
 
----
+## 7️⃣ Accessibility (A11y)
 
-# 🏗️ Tech Stack
-
-* HTML5
-* CSS3
-* Vanilla JavaScript (ES Modules)
-* LocalStorage API
-
-No external frameworks or libraries are used.
+* ARIA live regions for status updates
+* Accessible form error messaging
+* Semantic HTML structure
+* Keyboard navigable interface
 
 ---
 
-# 📂 Project Structure
+# 🔎 Regex Catalog
+
+The project uses regular expressions to validate user input.
+
+## 1️⃣ Name Validation
+
+**Pattern:**
 
 ```
-finance-tracker/
+/^[a-zA-Z\s'-]{2,50}$/
+```
+
+**Description:**
+
+* Allows letters
+* Allows spaces
+* Allows hyphens and apostrophes
+* Minimum 2 characters
+* Maximum 50 characters
+
+**Valid Examples:**
+
+* John Doe
+* Mary-Jane
+* O'Connor
+
+**Invalid Examples:**
+
+* J
+* John123
+* @Mary
+
+---
+
+## 2️⃣ Budget / Amount Validation
+
+**Pattern:**
+
+```
+/^\d+(\.\d{1,2})?$/
+```
+
+**Description:**
+
+* Allows positive numbers
+* Allows up to 2 decimal places
+
+**Valid Examples:**
+
+* 100
+* 50.5
+* 9999.99
+
+**Invalid Examples:**
+
+* -50
+* 10.999
+* abc
+
+---
+
+## 3️⃣ Currency Rate Validation
+
+**Pattern:**
+
+```
+/^\d+(\.\d+)?$/
+```
+
+**Description:**
+
+* Must be a positive number
+* Allows decimals
+* No negative values
+
+**Valid Examples:**
+
+* 0.00078
+* 1.5
+* 1200
+
+**Invalid Examples:**
+
+* -1
+* abc
+* 1..2
+
+---
+
+# ⌨️ Keyboard Map
+
+The application fully supports keyboard navigation.
+
+| Key         | Action                           |
+| ----------- | -------------------------------- |
+| Tab         | Move to next interactive element |
+| Shift + Tab | Move to previous element         |
+| Enter       | Submit form                      |
+| Escape      | Close modal (if applicable)      |
+| Arrow Keys  | Navigate dropdown selections     |
+
+All interactive elements are reachable without using a mouse.
+
+---
+
+# ♿ Accessibility Notes (A11y)
+
+* Forms use `aria-describedby` for error messages
+* Error messages use `role="alert"`
+* Status messages use `aria-live="polite"`
+* Buttons and inputs are properly labeled
+* Color contrast follows accessibility guidelines
+* Semantic HTML elements used throughout
+
+Keyboard-only users can:
+
+* Add transactions
+* Set budget
+* Change currency
+* Import/export JSON
+* Navigate between pages
+
+---
+
+# 🧪 How to Run Tests
+
+This project uses manual functional testing and edge-case validation.
+
+## Manual Test Checklist
+
+* [ ] Add income transaction
+* [ ] Add expense transaction
+* [ ] Delete transaction
+* [ ] Set budget cap
+* [ ] Clear budget cap
+* [ ] Enter invalid name
+* [ ] Enter invalid budget
+* [ ] Enter invalid currency rate
+* [ ] Test quick currency conversion
+* [ ] Import seed.json
+* [ ] Export transactions
+* [ ] Refresh page and confirm persistence
+
+## Edge Case Testing
+
+* Large numbers (999999999)
+* Very small decimals (0.0001)
+* Edge dates (e.g., 1900-01-01, 2099-12-31)
+* Special characters in categories
+* Empty form submission
+
+---
+
+# 📦 seed.json
+
+The repository includes a `seed.json` file containing at least 10 diverse records including:
+
+* Very large amounts
+* Very small amounts
+* Edge-case dates
+* Complex category strings
+* Mixed income and expense records
+
+This file is used for import testing and validation.
+
+---
+
+# 🛠️ Project Structure
+
+```
+student_finance_tracker/
 │
 ├── index.html
 ├── settings.html
@@ -96,130 +258,20 @@ finance-tracker/
 │   └── variables.css
 │
 ├── scripts/
-│   ├── app.js              # Main application controller
-│   ├── ui.js               # Rendering and UI utilities
-│   ├── storage.js          # LocalStorage logic
-│   ├── validators.js       # Form validation logic
-│   ├── currency.js         # Currency conversion logic
-│   └── utils.js            # Shared helpers
+│   ├── app.js
+│   ├── ui.js
+│   ├── storage.js
+│   ├── validators.js
+│   ├── currency.js
+│   └── utils.js
 │
+├── seed.json
 └── README.md
 ```
 
 ---
 
-# 🧠 Architecture Overview
-
-The application follows a modular pattern:
-
-## app.js
-
-* Entry point
-* Event listeners
-* Navigation handling
-* Coordinates modules
-
-## ui.js
-
-* Renders dashboard statistics
-* Renders transaction table
-* Formats currency display
-* Shows toasts and status messages
-
-## storage.js
-
-* Handles LocalStorage read/write
-* Manages transactions
-* Manages user settings
-
-## validators.js
-
-Contains reusable validation functions:
-
-* validateName()
-* validateBudgetCap()
-* validateRate()
-
-## currency.js
-
-* Stores base and alternate currencies
-* Applies exchange rate
-* Performs conversions
-
----
-
-# 💾 Data Storage
-
-All application data is stored in LocalStorage.
-
-Example structure:
-
-```
-{
-  userName: "John",
-  budgetCap: 500,
-  baseCurrency: "RWF",
-  altCurrency: "USD",
-  rate: 0.00078,
-  transactions: [
-    {
-      id: "abc123",
-      type: "income",
-      amount: 200000,
-      category: "Salary",
-      date: "2026-02-01"
-    }
-  ]
-}
-```
-
----
-
-# 💱 Currency Conversion Logic
-
-Conversion formula:
-
-```
-convertedAmount = baseAmount × rate
-```
-
-Example:
-
-If base = RWF
-If alt = USD
-If rate = 0.00078
-
-Then:
-
-```
-200 RWF × 0.00078 = 0.156 USD
-```
-
----
-
-# 📊 Dashboard Calculations
-
-The system automatically calculates:
-
-* Total Income
-* Total Expenses
-* Net Balance
-* Remaining Budget
-
-All values are formatted based on the selected base currency.
-
----
-
-# ♿ Accessibility
-
-* ARIA live regions for dynamic updates
-* Clear form error messages
-* Semantic HTML structure
-* Accessible status notifications
-
----
-
-# 🛠️ Setup Instructions
+# ▶️ How to Run the Project Locally
 
 1. Clone the repository:
 
@@ -230,38 +282,27 @@ git clone https://github.com/Success85/student_finance_tracker.git
 2. Navigate into the project folder:
 
 ```
-cd finance-tracker
+cd student_finance_tracker
 ```
 
 3. Open `index.html` in your browser.
 
-No backend or server setup required.
+No server setup required.
 
 ---
 
-# 🧪 Testing Checklist
+# 🎥 Demo Video
 
-* [ ] Add income transaction
-* [ ] Add expense transaction
-* [ ] Delete transaction
-* [ ] Set budget cap
-* [ ] Clear budget cap
-* [ ] Change base currency
-* [ ] Save currency rate
-* [ ] Test quick converter
-* [ ] Refresh page and verify persistence
+**Unlisted Demo Video Link:**
+(Add your unlisted YouTube link here)
 
----
+The demo video demonstrates:
 
-# 🔮 Future Improvements
-
-* Automatic exchange rate API integration
-* Data visualization charts
-* Dark mode toggle
-* CSV export feature
-* Monthly reports
-* Backend integration
-* User authentication
+* Keyboard navigation
+* Regex validation edge cases
+* Import and export functionality
+* Currency conversion
+* Budget validation
 
 ---
 
@@ -286,5 +327,5 @@ Add your wireframe link here:
 
 # 👤 Author
 
-Success Ituma
-SOftware Engineer
+Success85
+Bachelor of Software Engineering Student
