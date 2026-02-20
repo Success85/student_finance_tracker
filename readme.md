@@ -1,32 +1,3 @@
-<<<<<<< HEAD
-Project structure:
-
-/student-finance-tracker
-│
-├── index.html
-├── about.html
-├── dashboard.html
-├── settings.html
-├── tests.html
-├── seed.json
-│
-├── styles/
-│   ├── main.css
-│   ├── layout.css
-│   ├── components.css
-│   └── responsive.css
-│
-├── scripts/
-│   ├── storage.js
-│   ├── state.js
-│   ├── ui.js
-│   ├── validators.js
-│   ├── search.js
-│   ├── stats.js
-│   └── settings.js
-│
-└── assets/
-=======
 # 💰 Rocel Student Finance Tracker
 
 A clean, modern, and responsive Personal Finance Tracker built with Vanilla JavaScript.
@@ -298,13 +269,13 @@ No backend or server setup required.
 
 Add your wireframe link here:
 
-[Wireframe Link](https:)
+[Wireframe Link](https://drive.google.com/drive/folders/1AaIOC2UzheL7cRoxx7TrfvtNGhdwJqPJ?usp=drive_link)
 
 ---
 
 # 🎥 Demo Video
 
-[Demo Video Link](https://)
+[Demo Video Link](https://youtu.be/MjT3V2qKwLY?si=bT6EQ4A_JwB_wN3g)
 
 ---
 
@@ -312,4 +283,3 @@ Add your wireframe link here:
 
 Success Ituma
 SOftware Engineer
->>>>>>> origin/master
