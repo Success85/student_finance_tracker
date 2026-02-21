@@ -147,7 +147,7 @@ To deploy your own:
 git init
 git add .
 git commit -m "Initial commit"
-git remote add origin https://github.com/YOUR_USERNAME/finance-tracker.git
+git remote add origin https://github.com/success85/student_finance_tracker.git
 git push -u origin main
 # Enable GitHub Pages in repo Settings → Pages → main branch
 ```
