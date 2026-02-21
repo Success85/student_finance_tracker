@@ -420,9 +420,9 @@ Use `tests.html` for structured QA. Manual test cases:
 
 ## Wireframe & Demo
 
-**Wireframe:** [View Wireframe](https://)
+**Wireframe: Made with Miro- Anyone can view it as team** [View Wireframe](https://miro.com/welcomeonboard/OVNXUkJqTTA5b25XK21Va3RmcFdoYzJ0T3dMamJwMU1PV2MwVk10YWJnQjFqU1R0OW9EVy9TNkxYNWk1bVpTYnhaUW5NdXJScmU4WWJNZHRpVTRzdlBiK1UvaGNBTkdBM29LYUdoSisvb0VtN3hFdVlYOWl4U2kyS2k1Q29wZ3lhWWluRVAxeXRuUUgwWDl3Mk1qRGVRPT0hdjE=?share_link_id=640464508863)
 
-**Demo Video:** [Watch Demo](https://)
+**Demo Video:** [Watch Demo](https://youtu.be/bECi5RxidzQ?si=shnyiXUAiZ_XeL_F)
 
 **Live Page:** [Watch Demo](https://https://success85.github.io/student_finance_tracker)
 
