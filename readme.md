@@ -1,4 +1,4 @@
-# ◈ FlowFunds — Student Finance Tracker
+# Rocel — Student Finance Tracker
 
 > A fully accessible, responsive, vanilla HTML/CSS/JS student finance tracking app.  
 > **Theme:** Student Finance Tracker  
@@ -8,7 +8,7 @@
 
 ## Overview
 
-FlowFunds helps students take control of their money — log income from jobs, scholarships, and gifts; track everyday expenses; visualize 7-day trends; and export data for backup or analysis.
+Rocel helps students take control of their money — log income from jobs, scholarships, and gifts; track everyday expenses; visualize 7-day trends; and export data for backup or analysis.
 
 Built with **no frameworks** (pure HTML5, CSS3, ES Modules) with a focus on accessibility, mobile-first design, and clean modular code.
 
