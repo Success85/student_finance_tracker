@@ -4,13 +4,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rocel — Student Finance Tracker</title>
+  <title>Rocel | Student Finance Tracker</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.0/chart.min.js">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
   <link rel="stylesheet" href="styles/main.css" />
   <link rel="stylesheet" href="styles/components.css" />
   <link rel="stylesheet" href="styles/responsive.css" />
@@ -18,14 +18,12 @@
 
 <body>
 
-  <!-- Mobile resposive view -->
   <div class="nav-overlay" id="navOverlay" aria-hidden="true"></div>
-  
-  <!-- Sidebar Navigation -->
+
   <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
     <div class="sidebar-header">
       <div class="logo">
-        <a href="#home"><span class="logo-icon" aria-hidden="true">◈</span>
+        <a href="#dashboard"><span class="logo-icon" aria-hidden="true">◈</span>
           <span class="logo-text">Rocel</span></a>
       </div>
       <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">✕</button>
@@ -40,7 +38,7 @@
           </a>
         </li>
         <li>
-          <a class="nav-link nav-sub-link" data-filter="all" role="menuitem" data-page="">
+          <a href="#dashboard" class="nav-link" data-filter="all">
             <span class="nav-icon" aria-hidden="true">↑</span>
             <span>Transactions</span>
           </a>
@@ -62,17 +60,16 @@
 
     <div class="sidebar-footer">
       <button class="theme-toggle" id="sidebarThemeToggle" aria-label="Toggle dark mode">
-        <span class="theme-icon" id="sidebarThemeIcon">🌙</span>
+        <span class="theme-icon" id="sidebarThemeIcon">☾ </span>
         <span id="themeLabel">Dark Mode</span>
       </button>
       <div class="balance-pill" id="sidebarBalance" aria-label="Current balance">
         <span class="pill-label">Balance</span>
-        <span class="pill-value" id="sidebarBalanceValue">RWF 0</span>
+        <span class="pill-value" id="sidebarBalanceValue">₦ 0</span>
       </div>
     </div>
   </aside>
 
-  <!-- Navbar top in a mobile screen -->
   <header class="topbar" role="banner">
     <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false"
       aria-controls="sidebar">
@@ -81,22 +78,21 @@
       <span class="ham-line"></span>
     </button>
     <div class="topbar-logo">
-      <span aria-hidden="true">◈</span> Rocel
+      <a href="#dashboard"><span class="logo-icon" aria-hidden="true">◈</span>
+          <span class="logo-text">Rocel</span></a>
     </div>
     <div class="topbar-actions">
       <button class="topbar-icon-btn" id="themeToggleBtn" aria-label="Toggle theme">
         <span class="theme-icon" id="topbarThemeIcon">🌙</span>
       </button>
       <div class="topbar-balance" aria-live="polite">
-        <span id="topbarBalance">RWF 0</span>
+        <span id="topbarBalance">₦ 0</span>
       </div>
     </div>
   </header>
 
-  <!-- Main Content -->
   <main id="main-content" class="main-content" role="main">
 
-    <!-- The home dashboard page -->
     <section id="dashboard" class="page active" aria-label="Dashboard">
       <div class="page-header">
         <div>
@@ -105,13 +101,13 @@
         </div>
         <div class="page-actions">
           <button class="btn btn-sm btn-primary" id="openTransactionModal">
-            <span aria-hidden="true">➕</span> Add Transaction
+            <span aria-hidden="true">➕</span><span class="btn-label"> Add</span>
           </button>
           <button class="btn btn-sm btn-ghost" id="exportBtn" aria-label="Export data as JSON">
-            <span aria-hidden="true">↑</span> Export
+            <span aria-hidden="true">↑</span><span class="btn-label"> Export</span>
           </button>
           <label class="btn btn-sm btn-ghost" for="importInput" style="cursor:pointer">
-            <span aria-hidden="true">↓</span> Import
+            <span aria-hidden="true">↓</span><span class="btn-label"> Import</span>
           </label>
           <input type="file" id="importInput" accept=".json" class="sr-only" aria-label="Import JSON file" />
         </div>
@@ -122,21 +118,21 @@
           <div class="stat-icon" aria-hidden="true">↑</div>
           <div class="stat-info">
             <span class="stat-label">Total Income</span>
-            <span class="stat-value" id="statIncome">$0.00</span>
+            <span class="stat-value" id="statIncome">₦ 0</span>
           </div>
         </div>
         <div class="stat-card expense-card">
           <div class="stat-icon" aria-hidden="true">↓</div>
           <div class="stat-info">
             <span class="stat-label">Total Expenses</span>
-            <span class="stat-value" id="statExpense">0.00 RWF</span>
+            <span class="stat-value" id="statExpense">₦ 0</span>
           </div>
         </div>
         <div class="stat-card balance-card">
           <div class="stat-icon" aria-hidden="true">◎</div>
           <div class="stat-info">
             <span class="stat-label">Net Balance</span>
-            <span class="stat-value" id="statBalance">0.00 RWF</span>
+            <span class="stat-value" id="statBalance">₦ 0</span>
           </div>
         </div>
         <div class="stat-card budget-card">
@@ -153,34 +149,25 @@
         </div>
       </div>
 
-      <!-- This is the charts and statistis section -->
       <div class="charts-section">
         <div class="chart-card balance-card">
           <h2>Available Balance</h2>
-          <div class="big-number" id="balanceAmount">RWF 0</div>
-          <canvas id="balanceSparkline" height="40"></canvas>
+          <div class="big-number" id="balanceAmount">₦ 0</div>
+          <div style="height: 280px; position: relative;">
+            <canvas id="monthlyChart"></canvas>
+          </div>
         </div>
-
-        <!-- Monthly Tracking Chart -->
-        <div class="chart-card chart-wide">
-          <h2>Monthly Income vs Expenses</h2>
-          <canvas id="monthlyChart" height="280"></canvas>
+        <div style="height: 300px; position: relative;">
+          <canvas id="categoryPieChart"></canvas>
         </div>
-
-        <!-- Category Chart -->
-        <div class="chart-card">
-          <h2>Spending by Category</h2>
-          <canvas id="categoryPieChart" height="300"></canvas>
+        <div style="height: 300px; position: relative;">
+          <canvas id="incomeSourceChart"></canvas>
         </div>
-
-        <!-- Income Sources Chart -->
-        <div class="chart-card">
-          <h2>Income Sources</h2>
-          <canvas id="incomeSourceChart" height="300"></canvas>
+        <div style="height: 50px; position: relative;">
+          <canvas id="balanceSparkline"></canvas>
         </div>
       </div>
 
-      <!-- Trend Chart -->
       <div class="chart-section" role="region" aria-label="7-day spending trend">
         <h2>Last 7 Days</h2>
         <div class="chart-wrap">
@@ -189,9 +176,7 @@
         </div>
       </div>
 
-      <!-- Add Transaction Forms -->
       <div class="forms-row">
-        <!-- Transactions Table -->
         <div class="table-section" role="region" aria-label="Transactions table">
           <div class="table-header">
             <h2>Transactions</h2>
@@ -230,22 +215,15 @@
             <table id="transTable" aria-live="polite">
               <thead>
                 <tr>
-                  <th scope="col">
-                    <button class="sort-btn" data-sort="desc">Description</button>
-                  </th>
-                  <th scope="col">
-                    <button class="sort-btn" data-sort="amount">Amount</button>
-                  </th>
+                  <th scope="col"><button class="sort-btn" data-sort="desc">Description</button></th>
+                  <th scope="col"><button class="sort-btn" data-sort="amount">Amount</button></th>
                   <th scope="col">Category</th>
-                  <th scope="col">
-                    <button class="sort-btn" data-sort="date">Date</button>
-                  </th>
+                  <th scope="col"><button class="sort-btn" data-sort="date">Date</button></th>
                   <th scope="col">Type</th>
                   <th scope="col">Actions</th>
                 </tr>
               </thead>
-              <tbody id="transBody">
-              </tbody>
+              <tbody id="transBody"></tbody>
             </table>
             <div class="table-empty" id="tableEmpty" hidden>
               <p>No transactions found.</p>
@@ -273,7 +251,7 @@
               </div>
               <div class="form-row-2">
                 <div class="form-group">
-                  <label for="editAmount">Amount (RWF) *</label>
+                  <label for="editAmount">Amount (₦) *</label>
                   <input type="text" id="editAmount" required aria-describedby="editAmtErr" />
                   <span class="field-error" id="editAmtErr" role="alert" aria-live="assertive"></span>
                 </div>
@@ -332,6 +310,7 @@
             </div>
           </div>
         </div>
+
         <!-- Transaction Modal -->
         <div class="modal-backdrop" id="transactionModal" hidden role="dialog" aria-modal="true"
           aria-labelledby="transactionModalTitle">
@@ -358,7 +337,7 @@
               </div>
               <div class="form-row-2">
                 <div class="form-group">
-                  <label for="txAmount">Amount (RWF) *</label>
+                  <label for="txAmount">Amount (₦) *</label>
                   <input type="text" id="txAmount" required placeholder="1000" inputmode="numeric"
                     aria-describedby="txAmtErr" />
                   <span class="field-error" id="txAmtErr" role="alert" aria-live="assertive"></span>
@@ -389,8 +368,6 @@
         </div>
     </section>
 
-
-    <!-- This the about page -->
     <section id="about" class="page" aria-label="About Rocel">
       <div class="about-wrap">
         <div class="hero">
@@ -400,54 +377,50 @@
           <div class="hero-text">
             <p class="hero-eyebrow">Student Finance Tracker</p>
             <h1 class="hero-title">Money made simple</h1>
-            <p class="hero-subtitle">Rocel helps students take control of their money — track income from jobs and
-              scholarships, log daily
-              expenses, visualize trends, and export their data for further analysis. Built with accessibility and
-              mobile-first design in mind.</p>
+            <p class="hero-subtitle">Rocel helps students take control of their money, track income from jobs and
+              scholarships, log daily expenses, visualize trends, and export their data for further analysis. Built with
+              accessibility and mobile-first design in mind.</p>
             <div class="hero-actions">
               <button class="btn btn-primary" data-nav="dashboard">Open Dashboard</button>
               <button class="btn btn-ghost" data-nav="about">Learn More</button>
-              <!-- <a href="" class="btn btn-primary" data-nav="dashboard">Open Dashboard</a>
-            <a href="" class="btn btn-ghost" data-nav="about">Learn More</a> -->
             </div>
           </div>
         </div>
 
         <section class="features" aria-labelledby="features-title">
           <div class="container">
-            <h1 class="features-title">FEATURES OF Rocel</h1>
+            <h1 class="features-title">Features of Rocel</h1>
             <p class="features-description">Rocel offers some exclusive features that helps you manage your finances
               effectively!</p>
             <ul class="feature-list">
               <li class="feature">
                 <img src="assets/icons/analytics-icon.svg" alt="" width="120" height="120" aria-hidden="true">
                 <h3>Expense Tracking</h3>
-                <p>Log daily spending, categorize it, and see where your money goes.</p>
+                <p>Log daily expenses, categorize it, and visualize where your money goes.</p>
               </li>
               <li class="feature">
                 <img src="assets/icons/money-icon.svg" alt="" width="120" height="120" aria-hidden="true">
-                <h3>Income Reporting</h3>
-                <p>Record stipends, salaries, and transfers; view monthly and total income.</p>
+                <h3>Income Management</h3>
+                <p>Record stipends, salaries, and win hackathons; view monthly and total income.</p>
               </li>
               <li class="feature">
                 <img src="assets/icons/report-icon.svg" alt="" width="120" height="120" aria-hidden="true">
                 <h3>Report Generation</h3>
-                <p>Export clean summaries (JSON/CSV/PDF) for sharing or record-keeping.</p>
+                <p>Export clean summaries (JSON/CSV/PDF) for keeping records and accountability.</p>
               </li>
               <li class="feature">
                 <img src="assets/icons/alert-icon.svg" alt="" width="120" height="120" aria-hidden="true">
                 <h3>Budgets &amp; Live Alerts</h3>
-                <p>Set monthly caps per category and get gentle warnings before you overspend.</p>
+                <p>Set monthly capacity get gentle warnings before you overspend.</p>
               </li>
             </ul>
           </div>
         </section>
-        <!-- contact section for the user to reach out to me -->
+
         <section class="contact" id="contact" aria-labelledby="contact-title">
           <div class="container">
             <h1 id="contact-title">Get In Touch</h1>
-            <p class="contact-description">Reach out to
-              me for any feedback or questions about Rocel. We want to help you manage your finances better!</p>
+            <p class="contact-description">Reach out to me for any feedback or questions about Rocel.</p>
             <div class="contact-wrapper">
               <div class="contact-info">
                 <ul class="contact-list">
@@ -456,6 +429,7 @@
                   </li>
                   <li>
                     <a href="https://github.com/success85" target="_blank"><span></span> @success85</a>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -463,6 +437,7 @@
         </section>
       </div>
     </section>
+
     <div class="keyboard-shortcuts-section" role="region" aria-label="Keyboard shortcuts">
       <h2>Keyboard Shortcuts</h2>
       <div class="shortcuts-grid">
@@ -485,7 +460,6 @@
       </div>
     </div>
 
-    <!-- This is the settings page section -->
     <section id="settings" class="page" aria-label="Settings">
       <div class="settings-wrap">
         <div class="page-header">
@@ -497,10 +471,9 @@
 
         <div class="settings-grid">
           <div class="settings-card">
-            <h2>Profile & Budget</h2>
+            <h2>Profile &amp; Budget</h2>
             <p class="settings-desc">Set your name and monthly budget. Your name appears in the dashboard; your budget
               alerts notify when spending is high.</p>
-
             <form id="profileBudgetForm" novalidate aria-label="Profile and Budget form">
               <div class="form-group">
                 <label for="userName">Your Name *</label>
@@ -509,54 +482,49 @@
                 <span class="field-hint" id="userNameDesc">This will appear in your dashboard welcome message.</span>
                 <span class="field-error" id="userNameErr" role="alert" aria-live="assertive"></span>
               </div>
-
               <div class="form-group">
-                <label for="budgetCap">Monthly Budget (RWF)</label>
+                <label for="budgetCap">Monthly Budget (₦)</label>
                 <input type="text" id="budgetCap" placeholder="e.g. 500.00"
                   aria-describedby="budgetCapDesc budgetCapErr" />
                 <span class="field-hint" id="budgetCapDesc">Leave blank to disable budget alerts.</span>
                 <span class="field-error" id="budgetCapErr" role="alert" aria-live="assertive"></span>
               </div>
-
               <div role="status" id="profileBudgetSavedMsg" aria-live="polite" class="form-status success"></div>
-
               <button type="submit" class="btn btn-primary">Save Settings</button>
               <button type="button" class="btn btn-ghost" id="clearBudgetBtn">Clear Budget</button>
             </form>
           </div>
+
           <div class="settings-card">
             <h2>Currency Display</h2>
-            <p class="settings-desc">RWF is your base currency. Use the quick converter below to convert to USD or NGN.
+            <p class="settings-desc">NGN is your base currency. Use the quick converter below to convert to USD or NGN.
             </p>
-
             <div class="form-group">
               <label>Base Currency</label>
+              <div class="currency-static-badge"> NGN — Nigerian Naira</div>
               <div class="currency-static-badge"> RWF — Rwandan Franc</div>
             </div>
-
             <div class="rates-info">
               <div class="rate-row">
-                <span>1 RWF → USD</span>
+                <span>1 ₦ → USD</span>
                 <strong>0.00069</strong>
               </div>
               <div class="rate-row">
-                <span>1 RWF → NGN</span>
-                <strong>1.02</strong>
+                <span>1 NGN → RWF</span>
+                <strong>0.92</strong>
               </div>
             </div>
-
-            <!-- Currency Converter -->
             <div class="converter-section">
               <h3>Quick Converter</h3>
               <div class="converter-row">
-                <input type="text" id="convertInput" placeholder="Amount in RWF"
-                  aria-label="Amount in RWF to convert" />
+                <input type="text" id="convertInput" placeholder="Amount in NGN"
+                  aria-label="Amount in NGN to convert" />
               </div>
               <div class="convert-results" id="convertResults" aria-live="polite"></div>
             </div>
           </div>
         </div>
-        <!-- Data Management -->
+
         <div class="settings-card full-width">
           <h2>Data Management</h2>
           <p class="settings-desc">Export your data as JSON for backup, or import a previously exported file. All
@@ -581,14 +549,12 @@
 
   </main>
 
-  <!-- Footer -->
   <footer class="app-footer" role="contentinfo">
     <p>Rocel © 2026. Built by <a href="https://www.linkedin.com/in/success-ituma-4176ba263">Success</a></p>
   </footer>
-  
+
   <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
-  <!-- Scripts -->
   <script type="module" src="scripts/app.js"></script>
 </body>
 

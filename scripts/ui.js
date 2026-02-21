@@ -1,3 +1,4 @@
+// scripts/ui.js — UI rendering and updates
 
 import { compileRegex, highlightMatches, escapeHtml } from './validators.js';
 import {
@@ -6,10 +7,13 @@ import {
   getSort, getSearch, getFilters, getCategories,
 } from './state.js';
 
+//Chart rendering functions
+
+import { createPieChart, createBarChart, createSparkline } from './charts.js';
 
 function fmt(n) {
   const settings = getSettings() || {};
-  const currency = settings.baseCurrency || 'RWF';
+  const currency = settings.baseCurrency || 'NGN';
 
   const symbols = {
     RWF: 'RWF ',
@@ -18,35 +22,34 @@ function fmt(n) {
   };
 
   const rateUSD = parseFloat(settings.rateUSD);
-  const rateNGN = parseFloat(settings.rateNGN);
+  const rateRWF = parseFloat(settings.rateRWF);
 
   let amount = Math.abs(n);
 
   if (currency === 'USD' && !isNaN(rateUSD)) {
     amount = amount * rateUSD;
-  } else if (currency === 'NGN' && !isNaN(rateNGN)) {
-    amount = amount * rateNGN;
+  } else if (currency === 'RWF' && !isNaN(rateRWF)) {
+    amount = amount * rateRWF;
   }
 
-  return (symbols[currency] || 'RWF ') +
+  return (symbols[currency] || '₦') +
     amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 const fmtSigned = (n, type) => type === 'income' ? `+${fmt(n)}` : `−${fmt(n)}`;
 
+// Convert amount from the base RWF currency to two other alternative currencies the NGN ans UDS
 export function convertCurrency(amountUSD, settings) {
-  const symbols = { RWF: 'RWF', USD: '$', NGN: '₦'};
+  const symbols = { RWF: 'RWF', USD: '$', NGN: '₦' };
   const baseSymbol = symbols[settings.baseCurrency] || '$';
 
-  const r1 = parseFloat(settings.rate1) || 0.92;
-  const r2 = parseFloat(settings.rate2) || 0.79;
-  const sym1 = symbols[settings.altCurrency1] || '€';
-  const sym2 = symbols[settings.altCurrency2] || '£';
+  // const r1 = parseFloat(settings.rate1) || 0.92;
+  // const r2 = parseFloat(settings.rate2) || 0.79;
 
-  return {
-    base: `${baseSymbol}${amountUSD.toFixed(2)}`,
-    alt1: `${sym1}${(amountUSD * r1).toFixed(2)}`,
-    alt2: `${sym2}${(amountUSD * r2).toFixed(2)}`,
-  };
+  // return {
+  //   base: `${baseSymbol}${amountUSD.toFixed(2)}`,
+  //   alt1: `${sym1}${(amountUSD * r1).toFixed(2)}`,
+  //   alt2: `${sym2}${(amountUSD * r2).toFixed(2)}`,
+  // };
 }
 
 export function renderStats() {
@@ -62,15 +65,15 @@ export function renderStats() {
     balEl.style.color = balance >= 0 ? 'var(--income)' : 'var(--expense)';
   }
 
-  // Sidebar balance
+  // Sidebar balance at the footer
   setEl('sidebarBalanceValue', fmt(Math.abs(balance)));
   const sbVal = document.getElementById('sidebarBalanceValue');
   if (sbVal) sbVal.style.color = balance >= 0 ? 'var(--income)' : 'var(--expense)';
 
-  // Topbar balance
+  // Topbar balance on the mobile screen view
   setEl('topbarBalance', fmt(Math.abs(balance)));
 
-  // Budget cap
+  // Budget capacity bar tracking the expenses against the set budget cap
   const cap = settings.budgetCap ? parseFloat(settings.budgetCap) : null;
   const capEl = document.getElementById('statCap');
   const barEl = document.getElementById('budgetBar');
@@ -119,7 +122,7 @@ export function renderHomeStats() {
   setEl('stripTopCat', getTopCategory());
   setEl('stripWeekSpend', fmt(getLast7DaysSpend()));
   const avg = getAvgTransaction();
-  setEl('stripAvg', avg > 0 ? fmt(avg) : '0.00 RWF');
+  setEl('stripAvg', avg > 0 ? fmt(avg) : '0.00 ₦');
 }
 
 export function renderChart() {
@@ -205,10 +208,11 @@ export function renderTable() {
   const { searchQuery, caseSensitive } = getSearch();
   const { filterType, filterCategory } = getFilters();
 
-  // This is the search regex compilation with error handling
+  // The search regex is compiled once and reused for filtering and highlighting, with error handling to avoid crashes on invalid patterns
   const re = searchQuery ? compileRegex(searchQuery, caseSensitive ? '' : 'i') : null;
   const searchValid = !searchQuery || re !== null;
 
+  // Update search indicator for invalid regex
   const indicator = document.getElementById('searchIndicator');
   if (indicator) {
     if (searchQuery && !re) {
@@ -219,7 +223,7 @@ export function renderTable() {
     }
   }
 
-  // Filter the traction based on matches and selected filters
+  // Filter, sort and search for transactions.
   let txns = getTransactions().filter(tx => {
     if (filterType !== 'all' && tx.type !== filterType) return false;
     if (filterCategory !== 'all' && tx.category !== filterCategory) return false;
@@ -230,7 +234,7 @@ export function renderTable() {
     return true;
   });
 
-  // Sort the data based on selected key and direction
+  // Sort traction using selected keyword
   txns.sort((a, b) => {
     let valA, valB;
     switch (sortKey) {
@@ -243,10 +247,12 @@ export function renderTable() {
     return 0;
   });
 
+  // Update count of results found after filtering and searching
   if (resultCount) {
     resultCount.textContent = `${txns.length} transaction${txns.length !== 1 ? 's' : ''}`;
   }
 
+  // Empty state 
   if (txns.length === 0) {
     tbody.innerHTML = '';
     if (tableEmpty) tableEmpty.hidden = false;
@@ -254,6 +260,7 @@ export function renderTable() {
   }
   if (tableEmpty) tableEmpty.hidden = true;
 
+  // Render rows with highlight for search matches.
   tbody.innerHTML = txns.map(tx => {
     const descHtml = re ? highlightMatches(tx.description, re) : escapeHtml(tx.description);
     const catHtml = re ? highlightMatches(tx.category, re) : escapeHtml(tx.category);
@@ -291,6 +298,7 @@ export function renderTable() {
     `;
   }).join('');
 
+  // Mobile carrds
   renderMobileCards(txns, re);
 }
 
@@ -320,7 +328,6 @@ function renderMobileCards(txns, re) {
       <div class="trans-card" role="listitem" style="display:flex">
         <div class="trans-card-header">
           <div>
-            <div class="trans-card-desc">${descHtml}</div>
             <div class="trans-card-meta">
               <span class="cat-badge">
                 <span class="cat-dot cat-${escapeHtml(tx.category)}" aria-hidden="true"></span>
@@ -337,10 +344,11 @@ function renderMobileCards(txns, re) {
           </div>
         </div>
         <div class="trans-card-actions">
-          <button class="action-btn edit" data-id="${tx.id}"
-                  aria-label="Edit ${escapeHtml(tx.description)}">Edit</button>
-          <button class="action-btn delete" data-id="${tx.id}"
-                  aria-label="Delete ${escapeHtml(tx.description)}">Delete</button>
+                    <div class="trans-card-desc">${descHtml}</div>
+           <button class="action-btn edit" data-id="${tx.id}"
+          aria-label="Edit ${escapeHtml(tx.description)}">✎</button>
+            <button class="action-btn delete" data-id="${tx.id}"
+          aria-label="Delete ${escapeHtml(tx.description)}">🗑️</button>
         </div>
       </div>
     `;
@@ -363,7 +371,7 @@ export function renderDashboardWelcome() {
   const settings = getSettings();
   const welcome = document.getElementById('dashboardWelcome');
   if (!welcome) return;
-  
+
   const name = settings.userName?.trim();
   if (name) {
     welcome.textContent = `Welcome, ${name}!`;
@@ -378,6 +386,18 @@ export function renderSettings() {
   setInputVal('baseCurrency', s.baseCurrency);
   setInputVal('rateUSD', s.rateUSD || '');
   setInputVal('rateNGN', s.rateNGN || '');
+}
+
+let toastTimer = null;
+export function showToast(msg, type = 'info') {
+  const toast = document.getElementById('toast');
+  if (!toast) return;
+  toast.textContent = msg;
+  toast.className = `toast show ${type}`;
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toast.className = 'toast';
+  }, 3500);
 }
 
 function setEl(id, value) {
@@ -400,11 +420,6 @@ function formatDate(dateStr) {
     return dateStr;
   }
 }
-
-// Chart rendering using Chart.js
-
-
-import { createPieChart, createBarChart, createSparkline } from './charts.js';
 
 let categoryChart = null;
 let monthlyChart = null;
@@ -434,7 +449,7 @@ function renderBalanceCard() {
 function renderCategoryPieChart() {
   const txns = getTransactions().filter(t => t.type === 'expense');
   const categoryTotals = {};
-  
+
   txns.forEach(tx => {
     categoryTotals[tx.category] = (categoryTotals[tx.category] || 0) + tx.amount;
   });
@@ -464,7 +479,7 @@ function renderIncomeSourceChart() {
   // Group income transactions by category
   const incomeTxns = getTransactions().filter(t => t.type === 'income');
   const sourceTotals = {};
-  
+
   incomeTxns.forEach(tx => {
     sourceTotals[tx.category] = (sourceTotals[tx.category] || 0) + tx.amount;
   });
@@ -478,29 +493,30 @@ function renderIncomeSourceChart() {
   }
 }
 
-// Getting and displaying the last 7 days cumulative balance
+// Getting the last 7 days cumulative balance
 function getLast7DaysBalances() {
   const balances = [];
   const today = new Date();
-  
+
   for (let i = 6; i >= 0; i--) {
     const date = new Date(today);
     date.setDate(date.getDate() - i);
     const dateStr = date.toISOString().slice(0, 10);
-    
+
     const txnsUpToDate = getTransactions().filter(t => t.date <= dateStr);
-    const balance = txnsUpToDate.reduce((sum, t) => 
+    const balance = txnsUpToDate.reduce((sum, t) =>
       sum + (t.type === 'income' ? t.amount : -t.amount), 0
     );
     balances.push(balance);
   }
-  
+
   return balances;
 }
 
+// Getting the last monthly data for last 12 months
 function getMonthlyData() {
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
-                  'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const currentYear = new Date().getFullYear();
   const data = [];
 
@@ -508,14 +524,14 @@ function getMonthlyData() {
     const monthNum = String(idx + 1).padStart(2, '0');
     const txnsInMonth = getTransactions().filter(t => {
       const txDate = new Date(t.date);
-      return txDate.getFullYear() === currentYear && 
-             (txDate.getMonth() + 1) === (idx + 1);
+      return txDate.getFullYear() === currentYear &&
+        (txDate.getMonth() + 1) === (idx + 1);
     });
 
     const income = txnsInMonth
       .filter(t => t.type === 'income')
       .reduce((sum, t) => sum + t.amount, 0);
-    
+
     const expenses = txnsInMonth
       .filter(t => t.type === 'expense')
       .reduce((sum, t) => sum + t.amount, 0);
@@ -526,7 +542,7 @@ function getMonthlyData() {
   return data;
 }
 
-// Render all the ui components and charts
+// Base chart options with theming support
 export function renderAll() {
   renderStats();
   renderHomeStats();
@@ -535,5 +551,5 @@ export function renderAll() {
   renderTable();
   renderCategoryFilter();
   renderDashboardWelcome();
-  renderCharts(); // ADD THIS LINE
+  renderCharts();
 }

@@ -1,3 +1,5 @@
+// scripts/storage.js — This handles all interactions with localStorage, including loading/saving transactions and settings, as well as import/export functionality.
+
 const KEYS = {
   transactions: 'rocel:transactions',
   settings: 'rocel:settings',
@@ -47,7 +49,6 @@ export function loadSettings() {
   }
 }
 
-
 export function saveSettings(settings) {
   try {
     localStorage.setItem(KEYS.settings, JSON.stringify(settings));
@@ -60,9 +61,9 @@ function getDefaultSettings() {
   return {
     userName: '',
     budgetCap: null,
-    baseCurrency: 'RWF',
-    rateUSD: '',     
-    rateNGN: '',    
+    baseCurrency: 'NGN',
+    altCurrency: 'USD',
+    exchangeRates:0.00063,
     theme: 'light'
   };
 }
@@ -93,6 +94,7 @@ export function exportJSON(transactions, settings) {
   URL.revokeObjectURL(url);
 }
 
+
 export function importJSON(jsonText) {
   try {
     const data = JSON.parse(jsonText);
@@ -118,7 +120,7 @@ export function importJSON(jsonText) {
       return { transactions: [], settings: null, error: 'Invalid JSON format.' };
     }
 
-    // Validate each record
+    // Validation for each of the records in transactions array
     const errors = [];
     const validated = [];
     transactions.forEach((rec, i) => {

@@ -1,331 +1,159 @@
-# 💰 Student Finance Tracker
+# ◈ FlowFunds — Student Finance Tracker
 
-## 🌐 Repository & Live Demo
-
-**GitHub Repository:**
-[https://github.com/Success85/student_finance_tracker](https://github.com/Success85/student_finance_tracker)
-
-**GitHub Pages Deployment:**
-[https://success85.github.io/student_finance_tracker/](https://success85.github.io/student_finance_tracker/)
-
-> ⚠️ Note: The project is deployed using GitHub Pages as required. No Netlify, Heroku, Render, or other platforms are used.
+> A fully accessible, responsive, vanilla HTML/CSS/JS student finance tracking app.  
+> **Theme:** Student Finance Tracker  
+> **Live Demo:** [GitHub Pages URL]  
 
 ---
 
-# 🎯 Chosen Theme
+## Overview
 
-**Theme:** Personal Student Finance Management System
+FlowFunds helps students take control of their money — log income from jobs, scholarships, and gifts; track everyday expenses; visualize 7-day trends; and export data for backup or analysis.
 
-This application is designed to help students track income and expenses, manage a spending budget, and configure currency display and conversion. The system focuses on usability, accessibility, clean architecture, and robust input validation using regular expressions.
-
----
-
-# 🚀 Features List
-
-## 1️⃣ Transaction Management
-
-* Add income and expense transactions
-* Delete transactions
-* Categorize transactions
-* Real-time dashboard updates
-* Automatic calculation of:
-
-  * Total Income
-  * Total Expenses
-  * Net Balance
-
-## 2️⃣ Budget Cap System
-
-* Set a maximum spending limit
-* Compare expenses against budget
-* Clear budget option
-* Visual feedback for overspending
-
-## 3️⃣ Profile Settings
-
-* User name validation
-* Persistent name storage using LocalStorage
-* Personalized dashboard greeting
-
-## 4️⃣ Currency Display & Conversion
-
-* Select base currency (RWF, USD, NGN)
-* Convert base currency to one alternate currency
-* Manual exchange rate configuration
-* Quick currency converter
-* Dynamic UI update after saving settings
-
-## 5️⃣ Data Persistence
-
-* All transactions stored in LocalStorage
-* Settings preserved across sessions
-* Seed data import support
-
-## 6️⃣ Import / Export
-
-* Import transactions from JSON
-* Export transactions to JSON
-* Supports edge cases and special characters
-
-## 7️⃣ Accessibility (A11y)
-
-* ARIA live regions for status updates
-* Accessible form error messaging
-* Semantic HTML structure
-* Keyboard navigable interface
+Built with **no frameworks** (pure HTML5, CSS3, ES Modules) with a focus on accessibility, mobile-first design, and clean modular code.
 
 ---
 
-# 🔎 Regex Catalog
+## Features
 
-The project uses regular expressions to validate user input.
+| Feature | Details |
+|---|---|
+| Add Income | Form with real-time regex validation |
+| Add Expense | Form with duplicate-word detection (advanced regex) |
+| Edit Transactions | Modal with full re-validation |
+| Delete Transactions | Confirm dialog before deletion |
+| Regex Search | Live search with safe compiler, case toggle, match highlighting |
+| Sort | By date, amount, or description (A↕Z) |
+| Filter | By type (income/expense) and category |
+| 7-Day Chart | CSS/JS bar chart of daily income vs expenses |
+| Stats Dashboard | Income, expenses, net balance, budget cap |
+| Budget Cap | Set monthly limit with ARIA live alerts (polite under, assertive over) |
+| localStorage | Auto-save on every change, load on startup |
+| JSON Export | Download all data as timestamped JSON |
+| JSON Import | Upload and validate JSON, merges or replaces |
+| Currency Settings | Base + 2 alt currencies with manual rates |
+| Quick Converter | Live currency conversion tool |
+| Responsive | Mobile-first: 360px / 480px / 768px / 1024px+ |
+| Accessibility | WCAG 2.1 AA target, keyboard nav, ARIA live regions |
 
-## 1️⃣ Name Validation
+---
 
-**Pattern:**
+## Regex Catalog
+
+| Rule | Pattern | Valid Example | Invalid Example |
+|---|---|---|---|
+| Description (no leading/trailing spaces) | `/^\S(?:.*\S)?$/` | `"Coffee with friends"` | `" leading"` |
+| Amount (currency, up to 2 decimals) | `/^(0\|[1-9]\d*)(\.\d{1,2})?$/` | `"12.50"` | `"12.500"` |
+| Date (YYYY-MM-DD) | `/^\d{4}-(0[1-9]\|1[0-2])-(0[1-9]\|[12]\d\|3[01])$/` | `"2025-09-29"` | `"09/29/2025"` |
+| Category (letters, spaces, hyphens) | `/^[A-Za-z]+(?:[ -][A-Za-z]+)*$/` | `"Part-time"` | `"Food@Home"` |
+| **Duplicate word (back-reference)** | `/\b(\w+)\s+\1\b/i` | — | `"the the shop"` |
+| Rate (positive decimal) | `/^\d+(\.\d{1,6})?$/` | `"0.92"` | `"-0.5"` |
+| Budget cap (optional positive) | `/^(0\|[1-9]\d*)(\.\d{1,2})?$/` | `"500.00"` | `"abc"` |
+
+**Search patterns users can try:**
+- `(coffee|tea)` — Find beverages
+- `\.\d{2}\b` — Find amounts with cents
+- `\b(\w+)\s+\1\b` — Find duplicate words in descriptions
+- `^[A-Z]` — Descriptions starting with capital
+- `food|books` — Multiple categories (regex OR)
+
+---
+
+## Keyboard Navigation Map
+
+| Key / Shortcut | Action |
+|---|---|
+| `Tab` | Move focus forward |
+| `Shift+Tab` | Move focus backward |
+| `Enter` / `Space` | Activate button or link |
+| `Escape` | Close modal / close mobile sidebar |
+| `Enter` (on form) | Submit form |
+| Arrow keys | Navigate select dropdowns |
+| `Tab` to skip link | Jump to main content (first Tab press) |
+
+All interactive elements have **visible focus rings** (2px gold outline).
+
+---
+
+## Accessibility Notes
+
+- Semantic HTML5 landmarks: `<header>`, `<nav>`, `<main>`, `<section>`, `<footer>`
+- All form `<input>` and `<select>` elements have associated `<label>` elements
+- Skip-to-content link appears on first Tab press
+- ARIA live regions:
+  - `role="alert" aria-live="assertive"` — inline field errors
+  - `role="status" aria-live="polite"` — form success messages, result counts
+  - Budget cap: `polite` when under cap, `assertive` when exceeded
+- `aria-current="page"` on active nav link
+- `aria-expanded` on hamburger button
+- `aria-modal="true"` + `aria-labelledby` on dialog modals
+- `aria-pressed` on case-sensitive search toggle
+- `<mark>` for search highlights (accessible by screen readers)
+- Color contrast: Gold on dark background meets WCAG AA (4.5:1+)
+- No reliance on color alone to convey information
+
+---
+
+## File Structure
 
 ```
-/^[a-zA-Z\s'-]{2,50}$/
-```
-
-**Description:**
-
-* Allows letters
-* Allows spaces
-* Allows hyphens and apostrophes
-* Minimum 2 characters
-* Maximum 50 characters
-
-**Valid Examples:**
-
-* John Doe
-* Mary-Jane
-* O'Connor
-
-**Invalid Examples:**
-
-* J
-* John123
-* @Mary
-
----
-
-## 2️⃣ Budget / Amount Validation
-
-**Pattern:**
-
-```
-/^\d+(\.\d{1,2})?$/
-```
-
-**Description:**
-
-* Allows positive numbers
-* Allows up to 2 decimal places
-
-**Valid Examples:**
-
-* 100
-* 50.5
-* 9999.99
-
-**Invalid Examples:**
-
-* -50
-* 10.999
-* abc
-
----
-
-## 3️⃣ Currency Rate Validation
-
-**Pattern:**
-
-```
-/^\d+(\.\d+)?$/
-```
-
-**Description:**
-
-* Must be a positive number
-* Allows decimals
-* No negative values
-
-**Valid Examples:**
-
-* 0.00078
-* 1.5
-* 1200
-
-**Invalid Examples:**
-
-* -1
-* abc
-* 1..2
-
----
-
-# ⌨️ Keyboard Map
-
-The application fully supports keyboard navigation.
-
-| Key         | Action                           |
-| ----------- | -------------------------------- |
-| Tab         | Move to next interactive element |
-| Shift + Tab | Move to previous element         |
-| Enter       | Submit form                      |
-| Escape      | Close modal (if applicable)      |
-| Arrow Keys  | Navigate dropdown selections     |
-
-All interactive elements are reachable without using a mouse.
-
----
-
-# ♿ Accessibility Notes (A11y)
-
-* Forms use `aria-describedby` for error messages
-* Error messages use `role="alert"`
-* Status messages use `aria-live="polite"`
-* Buttons and inputs are properly labeled
-* Color contrast follows accessibility guidelines
-* Semantic HTML elements used throughout
-
-Keyboard-only users can:
-
-* Add transactions
-* Set budget
-* Change currency
-* Import/export JSON
-* Navigate between pages
-
----
-
-# 🧪 How to Run Tests
-
-This project uses manual functional testing and edge-case validation.
-
-## Manual Test Checklist
-
-* [ ] Add income transaction
-* [ ] Add expense transaction
-* [ ] Delete transaction
-* [ ] Set budget cap
-* [ ] Clear budget cap
-* [ ] Enter invalid name
-* [ ] Enter invalid budget
-* [ ] Enter invalid currency rate
-* [ ] Test quick currency conversion
-* [ ] Import seed.json
-* [ ] Export transactions
-* [ ] Refresh page and confirm persistence
-
-## Edge Case Testing
-
-* Large numbers (999999999)
-* Very small decimals (0.0001)
-* Edge dates (e.g., 1900-01-01, 2099-12-31)
-* Special characters in categories
-* Empty form submission
-
----
-
-# 📦 seed.json
-
-The repository includes a `seed.json` file containing at least 10 diverse records including:
-
-* Very large amounts
-* Very small amounts
-* Edge-case dates
-* Complex category strings
-* Mixed income and expense records
-
-This file is used for import testing and validation.
-
----
-
-# 🛠️ Project Structure
-
-```
-student_finance_tracker/
-│
-├── index.html
-├── settings.html
-│
+finance-tracker/
+├── index.html          # Main HTML (all pages/sections)
+├── tests.html          # Regex validation test suite
+├── seed.json           # 12 diverse seed records
+├── README.md           # This file
 ├── styles/
-│   ├── base.css
-│   ├── layout.css
-│   ├── components.css
-│   └── variables.css
-│
-├── scripts/
-│   ├── app.js
-│   ├── ui.js
-│   ├── storage.js
-│   ├── validators.js
-│   ├── currency.js
-│   └── utils.js
-│
-├── seed.json
-└── README.md
+│   ├── main.css        # Design system, base, layout
+│   ├── components.css  # UI components, animations
+│   └── responsive.css  # Mobile-first breakpoints
+└── scripts/
+    ├── app.js          # Main entry — navigation, events, wiring
+    ├── state.js        # App state management
+    ├── storage.js      # localStorage + import/export
+    ├── ui.js           # Rendering functions
+    └── validators.js   # All regex rules + highlight/escape utils
 ```
 
 ---
 
-# ▶️ How to Run the Project Locally
+## Running Tests
 
-1. Clone the repository:
+1. Open `tests.html` in a browser (must be served, not `file://` due to ES modules)
+2. A local server is recommended:
+   ```bash
+   npx serve .
+   # or
+   python3 -m http.server 3000
+   ```
+3. Navigate to `http://localhost:3000/tests.html`
 
+---
+
+## Importing Seed Data
+
+1. Go to **Settings** → **Data Management**
+2. Click **Import JSON**
+3. Select `seed.json` from the project folder
+4. 12 diverse records will be loaded instantly
+
+---
+
+## Deployment
+
+Deployed via **GitHub Pages** — see the live URL at the top of this README.
+
+To deploy your own:
+```bash
+git init
+git add .
+git commit -m "Initial commit"
+git remote add origin https://github.com/YOUR_USERNAME/finance-tracker.git
+git push -u origin main
+# Enable GitHub Pages in repo Settings → Pages → main branch
 ```
-git clone https://github.com/Success85/student_finance_tracker.git
-```
-
-2. Navigate into the project folder:
-
-```
-cd student_finance_tracker
-```
-
-3. Open `index.html` in your browser.
-
-No server setup required.
 
 ---
 
-# 🎥 Demo Video
+## Academic Integrity
 
-**Unlisted Demo Video Link:**
-(Add your unlisted YouTube link here)
-
-The demo video demonstrates:
-
-* Keyboard navigation
-* Regex validation edge cases
-* Import and export functionality
-* Currency conversion
-* Budget validation
-
----
-
-# 📐 Wireframe
-
-Add your wireframe link here:
-
-[Wireframe Link](https://drive.google.com/drive/folders/1AaIOC2UzheL7cRoxx7TrfvtNGhdwJqPJ?usp=drive_link)
-
----
-
-# 🎥 Demo Video
-
-[Demo Video Link](https://youtu.be/MjT3V2qKwLY?si=bT6EQ4A_JwB_wN3g)
-
----
-# The web app link: Deployed on github pages
-
-[Website Link](https://success85.github.io/student_finance_tracker)
-
----
-
-# 👤 Author
-
-Success85
-Bachelor of Software Engineering Student
+All UI, logic, and design is original work. No external libraries, frameworks, or Bootstrap used. Accessibility patterns referenced from MDN Web Docs and WCAG 2.1 guidelines.

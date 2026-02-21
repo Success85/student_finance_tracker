@@ -1,3 +1,5 @@
+// scripts/app.js — This is the main application script that initializes the app, sets up event listeners, and handles navigation and user interactions. It imports functions from state.js, ui.js, validators.js, storage.js, and charts.js to manage the app's functionality.
+
 import {
   initState, addTransaction, updateTransaction, deleteTransaction,
   getTransactionById, replaceAllTransactions, generateId,
@@ -19,7 +21,6 @@ import { exportJSON, importJSON, loadTransactions } from '../scripts/storage.js'
 
 import { createPieChart, createBarChart, createSparkline } from "../scripts/charts.js";
 
-// The page theme toggle is a bit more involved since it needs to persist across sessions and update multiple elements. Here's how we can implement it:
 function initTheme() {
   const saved = localStorage.getItem('rocel:theme') || 'light';
   document.documentElement.setAttribute('data-theme', saved);
@@ -38,37 +39,38 @@ function toggleTheme() {
 function updateThemeIcon(theme) {
   const icons = document.querySelectorAll('.theme-icon');
   const labels = document.querySelectorAll('#themeLabel');
-  icons.forEach(icon => icon.textContent = theme === 'light' ? '🌙' : '☀️');
+  icons.forEach(icon => icon.textContent = theme === 'light' ? '☾ ' : '☀');
   labels.forEach(label => label.textContent = theme === 'light' ? 'Dark Mode' : 'Light Mode');
 }
-// The page nagivation 
+
 
 const pages = ['dashboard', 'about', 'settings'];
 
 function navigateTo(pageId) {
   if (!pages.includes(pageId)) return;
 
-
+  // Update pages and change active class to the current page
   document.querySelectorAll('.page').forEach(p => {
     p.classList.toggle('active', p.id === pageId);
   });
 
+  // Update nav links and set aria-current for accessibility
   document.querySelectorAll('.nav-link').forEach(link => {
     const active = link.dataset.page === pageId;
     link.classList.toggle('active', active);
     link.setAttribute('aria-current', active ? 'page' : 'false');
   });
 
- 
   closeSidebar();
 
-  // Render page contents as needed
+  // Re-render relevant content
   if (pageId === 'dashboard') { renderStats(); renderChart(); renderTable(); renderCategoryFilter(); renderDashboardWelcome(); }
   if (pageId === 'settings') renderSettings();
 
-  // The page url and navigation to focus management
+  // Update URL hash
   window.location.hash = pageId;
 
+  // Focus management
   const main = document.getElementById('main-content');
   if (main) main.focus?.();
 }
@@ -84,7 +86,6 @@ function openSidebar() {
   hamburger.classList.add('open');
   hamburger.setAttribute('aria-expanded', 'true');
   document.body.style.overflow = 'hidden';
-
   const firstFocusable = sidebar.querySelector('a, button');
   firstFocusable?.focus();
 }
@@ -97,28 +98,6 @@ function closeSidebar() {
   hamburger.setAttribute('aria-expanded', 'false');
   document.body.style.overflow = '';
 }
-
-// const transactionsDropdown = document.getElementById('transactionsDropdown');
-// const transactionsMenu = document.getElementById('transactionsMenu');
-
-// transactionsDropdown?.addEventListener('click', (e) => {
-//   e.preventDefault();
-
-//   const isOpen = transactionsMenu.hasAttribute('hidden') === false;
-
-//   transactionsMenu.hidden = isOpen;
-//   transactionsDropdown.setAttribute('aria-expanded', String(!isOpen));
-// });
-
-// Dropdown filter buttons
-document.querySelectorAll('.nav-sub-link').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const filter = btn.dataset.filter;
-    setFilterType(filter === 'all' ? 'all' : filter);
-    navigateTo('dashboard');
-    renderTable();
-  });
-});
 
 function showError(inputEl, errorEl, msg) {
   if (inputEl) inputEl.classList.toggle('invalid', !!msg);
@@ -159,16 +138,17 @@ function closeTransactionModal() {
 function updateTransactionModal(type) {
   currentTransactionType = type;
 
-  // Toggle the income and expense button for adding transactions
+  // Update toggle buttons state to show when the button is active
   document.getElementById('expenseToggle').classList.toggle('active', type === 'expense');
   document.getElementById('incomeToggle').classList.toggle('active', type === 'income');
 
-
+  // Update categories based on type
   const categorySelect = document.getElementById('txCategory');
   const categories = type === 'income' ? incomeCategories : expenseCategories;
   categorySelect.innerHTML = '<option value="">Select category</option>' +
     categories.map(c => `<option value="${c}">${c}</option>`).join('');
 
+  // Update submit button 
   document.getElementById('submitBtnText').textContent =
     type === 'income' ? 'Add Income' : 'Add Expense';
 }
@@ -188,13 +168,14 @@ function clearTransactionErrors() {
   if (status) status.textContent = '';
 }
 
-// Open and closing of Transaction modal
+// Transaction Modal Event Listeners
 document.getElementById('openTransactionModal')?.addEventListener('click', openTransactionModal);
 document.getElementById('closeTransactionModal')?.addEventListener('click', closeTransactionModal);
 document.getElementById('cancelTransaction')?.addEventListener('click', closeTransactionModal);
 document.getElementById('expenseToggle')?.addEventListener('click', () => updateTransactionModal('expense'));
 document.getElementById('incomeToggle')?.addEventListener('click', () => updateTransactionModal('income'));
 
+// Transaction Form
 const transactionForm = document.getElementById('transactionForm');
 if (transactionForm) {
   transactionForm.addEventListener('input', (e) => {
@@ -255,7 +236,6 @@ if (transactionForm) {
     showToast(`${currentTransactionType === 'income' ? 'Income' : 'Expense'} "${desc}" added!`, 'success');
   });
 }
-
 
 const editModal = document.getElementById('editModal');
 const deleteModal = document.getElementById('deleteModal');
@@ -396,8 +376,6 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Search and sorting items using regex patterns for better matching and performance
-
 const searchInput = document.getElementById('searchInput');
 const caseSensBtn = document.getElementById('caseSensBtn');
 
@@ -456,7 +434,6 @@ document.getElementById('filterCategory')?.addEventListener('change', (e) => {
   renderTable();
 });
 
-// Save  data, import and export data using json
 function handleExport() {
   const txns = getTransactions();
   const settings = getSettings();
@@ -485,7 +462,7 @@ document.getElementById('exportBtn')?.addEventListener('click', handleExport);
 document.getElementById('exportBtnSettings')?.addEventListener('click', handleExport);
 document.getElementById('importInput')?.addEventListener('change', (e) => {
   handleImport(e.target.files[0]);
-  e.target.value = ''; 
+  e.target.value = ''; // Reset for re-use
 });
 document.getElementById('importInputSettings')?.addEventListener('change', (e) => {
   handleImport(e.target.files[0]);
@@ -501,11 +478,12 @@ form?.addEventListener('submit', (e) => {
   const budgetInput = document.getElementById('budgetCap');
   const statusMsg = document.getElementById('profileBudgetSavedMsg');
 
- 
+  // Validate the username when seting budget 
   const name = nameInput.value.trim();
   const nameErr = validateName(name);
   showError(nameInput, document.getElementById('userNameErr'), nameErr);
 
+  // Validate Budget
   const capValue = budgetInput.value.trim();
   const budgetErr = validateBudgetCap(capValue);
   showError(budgetInput, document.getElementById('budgetCapErr'), budgetErr);
@@ -513,12 +491,13 @@ form?.addEventListener('submit', (e) => {
   // Stop if any error
   if (nameErr || budgetErr) return;
 
+  // Update settings
   updateSettings({
     userName: name,
     budgetCap: capValue ? parseFloat(capValue) : null
   });
 
-
+  // Show status & toast
   setFormStatus(statusMsg, 'Settings saved!', 'success');
   setTimeout(() => setFormStatus(statusMsg, ''), 3000);
 
@@ -527,6 +506,7 @@ form?.addEventListener('submit', (e) => {
   showToast('Profile & budget updated!', 'success');
 });
 
+// Clear budget
 document.getElementById('clearBudgetBtn')?.addEventListener('click', () => {
   const budgetInput = document.getElementById('budgetCap');
   budgetInput.value = '';
@@ -535,9 +515,9 @@ document.getElementById('clearBudgetBtn')?.addEventListener('click', () => {
   showToast('Budget cleared!', 'success');
 });
 
-// Currency conversion form
+// Currency form
 
-const RATES = { USD: 0.00069, NGN: 1.02 };
+const RATES = { USD: 0.00069, RWF: 1.02 };
 
 document.getElementById('convertInput')?.addEventListener('input', (e) => {
   const val = parseFloat(e.target.value);
@@ -550,8 +530,8 @@ document.getElementById('convertInput')?.addEventListener('input', (e) => {
   }
 
   results.innerHTML = `
-    <div class="rate-row"><span>USD</span><strong>$ ${(val * RATES.USD).toFixed(4)}</strong></div>
-    <div class="rate-row"><span>NGN</span><strong>₦ ${(val * RATES.NGN).toFixed(2)}</strong></div>
+    <span class="rate-row" style="margin-right: 10px;"><span>USD</span><strong>$ ${(val * RATES.USD).toFixed(4)}</strong></span>
+    <span class="rate-row"><span>RWF</span><strong>${(val * RATES.RWF).toFixed(2)}</strong></span>
   `;
 });
 
@@ -572,22 +552,22 @@ document.getElementById('notificationBtn')?.addEventListener('click', () => {
   showToast('Notifications feature coming in a future version! 🚀', 'info');
 });
 
-//Adding the keyboard shortcuts 
 document.addEventListener('keydown', (e) => {
   const isCtrl = e.ctrlKey || e.metaKey;
 
-
+  // Home: Ctrl+H
   if (isCtrl && e.key === 'h') {
     e.preventDefault();
     navigateTo('dashboard');
   }
 
+  // Settings: Ctrl+S (prevent browser save)
   if (isCtrl && e.key === 's') {
     e.preventDefault();
     navigateTo('settings');
   }
 
-  // Focus search /
+  // Focus search: /
   if (e.key === '/' && !e.ctrlKey && !e.metaKey && document.activeElement.tagName !== 'INPUT') {
     e.preventDefault();
     document.getElementById('searchInput')?.focus();
@@ -626,6 +606,7 @@ initState();
 renderAll();
 setDefaultDates();
 
+// Handle initial hash
 const initialHash = window.location.hash.slice(1);
 if (pages.includes(initialHash)) {
   navigateTo(initialHash);
@@ -633,12 +614,12 @@ if (pages.includes(initialHash)) {
   navigateTo('dashboard');
 }
 
-// Call renderCharts when navigating to dashboard
+// Cals the renderCharts on the dashboard page to render the charts when the page loads.
 if (pageId === 'dashboard') { 
   renderStats(); 
   renderChart(); 
   renderTable(); 
   renderCategoryFilter(); 
   renderDashboardWelcome();
-  renderCharts();
+  renderCharts(); 
 }

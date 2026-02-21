@@ -1,6 +1,4 @@
-// The chart rendering logic using Chart.js
-
-
+// scripts/charts.js — This renders the external chart components gotten from chart.js using the Chart.js file
 function getTheme() {
   const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
   return {
@@ -87,7 +85,7 @@ export function createBarChart(canvasId, labels, incomeData, expenseData) {
         tooltip: {
           callbacks: {
             label: ctx =>
-              ` ${ctx.dataset.label}: RWF ${ctx.parsed.y.toLocaleString(undefined, { minimumFractionDigits: 0 })}`,
+              ` ${ctx.dataset.label}: ₦ ${ctx.parsed.y.toLocaleString(undefined, { minimumFractionDigits: 0 })}`,
           },
         },
       },
@@ -101,7 +99,7 @@ export function createBarChart(canvasId, labels, incomeData, expenseData) {
           ticks: {
             color: theme.text,
             font: { family: 'DM Sans, sans-serif', size: 11 },
-            callback: v => 'RWF ' + (v >= 1000 ? (v / 1000).toFixed(0) + 'k' : v),
+            callback: v => '₦ ' + (v >= 1000 ? (v / 1000).toFixed(0) + 'k' : v),
           },
           grid: { color: theme.grid },
         },
@@ -143,7 +141,7 @@ export function createPieChart(canvasId, labels, data, colors) {
           callbacks: {
             label: ctx => {
               const pct = ((ctx.parsed / total) * 100).toFixed(1);
-              return ` ${ctx.label}: RWF ${ctx.parsed.toLocaleString()} (${pct}%)`;
+              return ` ${ctx.label}: ₦ ${ctx.parsed.toLocaleString()} (${pct}%)`;
             },
           },
         },
@@ -165,7 +163,7 @@ export function createPieChart(canvasId, labels, data, colors) {
         ctx.fillStyle = theme.text;
         ctx.font = `700 14px DM Sans, sans-serif`;
         ctx.fillText(
-          'RWF ' + (total >= 1000 ? (total / 1000).toFixed(1) + 'k' : total.toFixed(0)),
+          '₦ ' + (total >= 1000 ? (total / 1000).toFixed(1) + 'k' : total.toFixed(0)),
           cx, cy + 8
         );
         ctx.restore();

@@ -1,27 +1,71 @@
-//Regex validation rules
+// scripts/validators.js — Regex validation rules
 
-// Description has to be non-empty, no leading/trailing spaces, and max 200 chars
+// Description (no leading/trailing spaces)
 const RE_DESCRIPTION = /^\S(?:.*\S)?$/;
 
-//The amount must be a positive number with up to 2 decimal places, and no leading zeros (except for "0" itself)
-const RE_AMOUNT = /^(0|[1-9]\d*)(\.\d{1,2})?$/;
+// Amount — digits only, optional 2 decimal places, NO letters allowed at all
+const RE_AMOUNT = /^\d+(\.\d{1,2})?$/;
 
-// Date formatting is YYYY-MM-DD
+// Date (YYYY-MM-DD)
 const RE_DATE = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
 
-// Category/tag (letters, spaces, hyphens) 
+// Category (letters, spaces, hyphens only)
 const RE_CATEGORY = /^[A-Za-z]+(?:[ -][A-Za-z]+)*$/;
 
-// Duplicated words are detected using this pattern
+// Duplicate word detection (back-reference)
 const RE_DUPLICATE_WORD = /\b(\w+)\s+\1\b/i;
 
-// The currency exchange rate validation 
+// Rate validation (positive decimal, digits only)
 const RE_RATE = /^\d+(\.\d{1,6})?$/;
 
+const BLOCKED_PATTERNS = [
+  // HTML / Script injection
+  { re: /<[^>]*>/i,                        msg: 'HTML tags are not allowed.' },
+  { re: /<\/?(script|iframe|object|embed|form|input|link|meta|style|svg|img|a)[^>]*>/i, msg: 'HTML tags are not allowed.' },
+
+  // JS / protocol attacks
+  { re: /javascript\s*:/i,                 msg: 'Invalid content detected.' },
+  { re: /vbscript\s*:/i,                   msg: 'Invalid content detected.' },
+  { re: /data\s*:/i,                       msg: 'Invalid content detected.' },
+
+  // Event handlers
+  { re: /on\w+\s*=/i,                      msg: 'Invalid content detected.' },
+
+  // Shell / terminal commands
+  { re: /\b(rm|sudo|chmod|chown|kill|curl|wget|bash|sh|zsh|cmd|powershell|exec|eval|spawn|fork)\b/i, msg: 'Command input is not allowed.' },
+  { re: /[|&;`$(){}[\]\\]/,               msg: 'Special characters are not allowed.' },
+
+  // SQL injection
+  { re: /('|--|;|\/\*|\*\/)/,              msg: 'Invalid characters detected.' },
+  { re: /\b(select|insert|update|delete|drop|alter|create|truncate|exec|execute|union|xp_)\b/i, msg: 'Invalid content detected.' },
+
+  // Message box / alert / console commands
+  { re: /\b(alert|confirm|prompt|msgbox|console\s*\.|document\s*\.|window\s*\.|process\s*\.|require\s*\()\b/i, msg: 'Command input is not allowed.' },
+
+  // Path traversal
+  { re: /(\.\.[/\\]|[/\\]\.\.|%2e%2e)/i,  msg: 'Invalid content detected.' },
+
+  // Encoded attacks
+  { re: /(%3c|%3e|%22|%27|%60|&#x|&#\d)/i, msg: 'Encoded characters are not allowed.' },
+];
+
+// Returns error message string or empty string if clean.
+function detectMalicious(val) {
+  for (const { re, msg } of BLOCKED_PATTERNS) {
+    if (re.test(val)) return msg;
+  }
+  return '';
+}
+
+
 export function validateDescription(val) {
-  if (!val || val.trim() === '') return 'Description is required.';
-  if (!RE_DESCRIPTION.test(val)) return 'Description must not start or end with spaces.';
-  if (val.length > 200) return 'Description must be 200 characters or fewer.';
+  if (!val || val.trim() === '')   return 'Description is required.';
+  if (!RE_DESCRIPTION.test(val))  return 'Description must not start or end with spaces.';
+  if (val.length > 200)           return 'Description must be 200 characters or fewer.';
+
+  const malicious = detectMalicious(val);
+  if (malicious) return malicious;
+
   return '';
 }
 
@@ -32,60 +76,82 @@ export function checkDuplicateWords(val) {
 }
 
 export function validateAmount(val) {
-  if (!val || val.trim() === '') return 'Amount is required.';
-  if (!RE_AMOUNT.test(val.trim())) return 'Enter a valid amount (e.g. 12.50).';
-  const num = parseFloat(val);
-  if (num <= 0) return 'Amount must be greater than zero.';
-  if (num > 1_000_000) return 'Amount must be below $1,000,000.';
+  if (!val || String(val).trim() === '') return 'Amount is required.';
+
+  const trimmed = String(val).trim();
+
+  // Immediately reject anything with letters
+  if (/[a-zA-Z]/.test(trimmed))   return 'Amount must contain numbers only.';
+
+  // Reject any symbol other than a single dot
+  if (/[^0-9.]/.test(trimmed))    return 'Amount must contain numbers only.';
+
+  // Reject multiple dots
+  if ((trimmed.match(/\./g) || []).length > 1) return 'Enter a valid amount (e.g. 1000 or 12.50).';
+
+  // Must match strict numeric format
+  if (!RE_AMOUNT.test(trimmed))   return 'Enter a valid amount (e.g. 1000 or 12.50).';
+
+  const num = parseFloat(trimmed);
+  if (isNaN(num))                 return 'Enter a valid number.';
+  if (num <= 0)                   return 'Amount must be greater than zero.';
+  if (num > 1_000_000_000)        return 'Amount is too large.';
+
   return '';
 }
 
 export function validateDate(val) {
-  if (!val || val.trim() === '') return 'Date is required.';
-  if (!RE_DATE.test(val.trim())) return 'Enter a valid date (YYYY-MM-DD).';
+  if (!val || val.trim() === '')  return 'Date is required.';
+  if (!RE_DATE.test(val.trim()))  return 'Enter a valid date (YYYY-MM-DD).';
 
-  // Check if date is not in the future
   const inputDate = new Date(val);
-  const tomorrow = new Date();
+  const tomorrow  = new Date();
   tomorrow.setHours(0, 0, 0, 0);
-
   tomorrow.setDate(tomorrow.getDate() + 1);
 
-  if (inputDate >= tomorrow) {
-    return 'Date cannot be in the future.';
-  }
-
+  if (inputDate >= tomorrow)      return 'Date cannot be in the future.';
   return '';
 }
 
 export function validateCategory(val) {
-  if (!val || val.trim() === '') return 'Please select a category.';
+  if (!val || val.trim() === '')     return 'Please select a category.';
+
+  const malicious = detectMalicious(val);
+  if (malicious) return malicious;
+
   if (!RE_CATEGORY.test(val.trim())) return 'Category may only contain letters, spaces, and hyphens.';
   return '';
 }
 
 export function validateName(val) {
-  if (!val || val.trim() === '') return 'Name is required.';
+  if (!val || val.trim() === '')     return 'Name is required.';
   const trimmed = val.trim();
-  if (trimmed.length < 2) return 'Name must be at least 2 characters.';
-  if (trimmed.length > 50) return 'Name must be 50 characters or fewer.';
-  if (!/^[a-zA-Z\s'-]+$/.test(trimmed)) return 'Name can only contain letters, spaces, hyphens, and apostrophes.';
+  if (trimmed.length < 2)           return 'Name must be at least 2 characters.';
+  if (trimmed.length > 50)          return 'Name must be 50 characters or fewer.';
+
+  const malicious = detectMalicious(trimmed);
+  if (malicious) return malicious;
+
+  if (!/^[a-zA-Z\s'-]+$/.test(trimmed))
+    return 'Name can only contain letters, spaces, hyphens, and apostrophes.';
   return '';
 }
 
 export function validateRate(val) {
-  if (!val || val.trim() === '') return 'Rate is required.';
-  if (!RE_RATE.test(val.trim())) return 'Enter a valid positive number (e.g. 0.92).';
+  if (!val || val.trim() === '')    return 'Rate is required.';
+  if (/[a-zA-Z]/.test(val.trim())) return 'Rate must contain numbers only.';
+  if (!RE_RATE.test(val.trim()))    return 'Enter a valid positive number (e.g. 0.92).';
   const num = parseFloat(val);
-  if (num <= 0) return 'Rate must be greater than zero.';
+  if (num <= 0)                     return 'Rate must be greater than zero.';
   return '';
 }
 
 export function validateBudgetCap(val) {
-  if (!val || val.trim() === '') return '';
-  if (!RE_AMOUNT.test(val.trim())) return 'Enter a valid amount (e.g. 500.00).';
+  if (!val || val.trim() === '')    return '';
+  if (/[a-zA-Z]/.test(val.trim())) return 'Budget must contain numbers only.';
+  if (!RE_AMOUNT.test(val.trim()))  return 'Enter a valid amount (e.g. 500.00).';
   const num = parseFloat(val);
-  if (num <= 0) return 'Cap must be greater than zero.';
+  if (num <= 0)                     return 'Cap must be greater than zero.';
   return '';
 }
 
@@ -106,6 +172,8 @@ export function validateTransaction(data) {
   return errors;
 }
 
+// Safe Regex Compiler 
+
 export function compileRegex(input, flags = 'i') {
   try {
     return input ? new RegExp(input, flags) : null;
@@ -113,6 +181,8 @@ export function compileRegex(input, flags = 'i') {
     return null;
   }
 }
+
+// Highlight Matches
 
 export function highlightMatches(text, re) {
   if (!re) return escapeHtml(text);
@@ -125,17 +195,32 @@ export function highlightMatches(text, re) {
     parts.push(escapeHtml(text.slice(lastIndex, match.index)));
     parts.push(`<mark>${escapeHtml(match[0])}</mark>`);
     lastIndex = globalRe.lastIndex;
-    if (globalRe.lastIndex === match.index) globalRe.lastIndex++; // prevent infinite loop
+    if (globalRe.lastIndex === match.index) globalRe.lastIndex++;
   }
   parts.push(escapeHtml(text.slice(lastIndex)));
   return parts.join('');
 }
 
+// Escape HTML
 export function escapeHtml(str) {
   return String(str)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
+    .replace(/'/g, '&#39;')
+    .replace(/\//g, '&#x2F;');
+}
+
+// Sanitize (strip dangerous content before saving)
+
+export function sanitize(str) {
+  return String(str)
+    .replace(/<[^>]*>/g, '')           // strip HTML tags
+    .replace(/javascript\s*:/gi, '')   // strip js: protocol
+    .replace(/vbscript\s*:/gi, '')     // strip vbscript:
+    .replace(/data\s*:/gi, '')         // strip data: URIs
+    .replace(/on\w+\s*=/gi, '')        // strip event handlers
+    .replace(/[|&;`$]/g, '')           // strip shell operators
+    .trim();
 }

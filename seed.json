@@ -1,0 +1,1311 @@
+{
+  "transactions": [
+    {
+      "id": "tx_001",
+      "description": "January scholarship disbursement",
+      "amount": 150000,
+      "category": "Scholarship",
+      "date": "2026-01-02",
+      "type": "income",
+      "createdAt": "2026-01-02T08:00:00.000Z",
+      "updatedAt": "2026-01-02T08:00:00.000Z"
+    },
+    {
+      "id": "tx_002",
+      "description": "Lunch at cafeteria",
+      "amount": 3500,
+      "category": "Food",
+      "date": "2026-01-02",
+      "type": "expense",
+      "createdAt": "2026-01-02T12:30:00.000Z",
+      "updatedAt": "2026-01-02T12:30:00.000Z"
+    },
+    {
+      "id": "tx_003",
+      "description": "Bus fare to campus",
+      "amount": 500,
+      "category": "Transport",
+      "date": "2026-01-03",
+      "type": "expense",
+      "createdAt": "2026-01-03T07:15:00.000Z",
+      "updatedAt": "2026-01-03T07:15:00.000Z"
+    },
+    {
+      "id": "tx_004",
+      "description": "Programming textbook",
+      "amount": 18000,
+      "category": "Books",
+      "date": "2026-01-04",
+      "type": "expense",
+      "createdAt": "2026-01-04T10:00:00.000Z",
+      "updatedAt": "2026-01-04T10:00:00.000Z"
+    },
+    {
+      "id": "tx_005",
+      "description": "Freelance logo design",
+      "amount": 35000,
+      "category": "Freelance",
+      "date": "2026-01-05",
+      "type": "income",
+      "createdAt": "2026-01-05T14:00:00.000Z",
+      "updatedAt": "2026-01-05T14:00:00.000Z"
+    },
+    {
+      "id": "tx_006",
+      "description": "Groceries from supermarket",
+      "amount": 12000,
+      "category": "Food",
+      "date": "2026-01-05",
+      "type": "expense",
+      "createdAt": "2026-01-05T16:00:00.000Z",
+      "updatedAt": "2026-01-05T16:00:00.000Z"
+    },
+    {
+      "id": "tx_007",
+      "description": "Exam registration fee",
+      "amount": 20000,
+      "category": "Fees",
+      "date": "2026-01-06",
+      "type": "expense",
+      "createdAt": "2026-01-06T09:00:00.000Z",
+      "updatedAt": "2026-01-06T09:00:00.000Z"
+    },
+    {
+      "id": "tx_008",
+      "description": "Weekend movie outing",
+      "amount": 5000,
+      "category": "Entertainment",
+      "date": "2026-01-07",
+      "type": "expense",
+      "createdAt": "2026-01-07T19:00:00.000Z",
+      "updatedAt": "2026-01-07T19:00:00.000Z"
+    },
+    {
+      "id": "tx_009",
+      "description": "Part-time tutoring salary",
+      "amount": 45000,
+      "category": "Salary",
+      "date": "2026-01-07",
+      "type": "income",
+      "createdAt": "2026-01-07T10:00:00.000Z",
+      "updatedAt": "2026-01-07T10:00:00.000Z"
+    },
+    {
+      "id": "tx_010",
+      "description": "Okada rides for the week",
+      "amount": 3000,
+      "category": "Transport",
+      "date": "2026-01-08",
+      "type": "expense",
+      "createdAt": "2026-01-08T08:00:00.000Z",
+      "updatedAt": "2026-01-08T08:00:00.000Z"
+    },
+    {
+      "id": "tx_011",
+      "description": "Dinner at restaurant",
+      "amount": 8500,
+      "category": "Food",
+      "date": "2026-01-08",
+      "type": "expense",
+      "createdAt": "2026-01-08T18:30:00.000Z",
+      "updatedAt": "2026-01-08T18:30:00.000Z"
+    },
+    {
+      "id": "tx_012",
+      "description": "Birthday gift from parents",
+      "amount": 50000,
+      "category": "Gift",
+      "date": "2026-01-09",
+      "type": "income",
+      "createdAt": "2026-01-09T11:00:00.000Z",
+      "updatedAt": "2026-01-09T11:00:00.000Z"
+    },
+    {
+      "id": "tx_013",
+      "description": "Printed lecture notes",
+      "amount": 2500,
+      "category": "Books",
+      "date": "2026-01-09",
+      "type": "expense",
+      "createdAt": "2026-01-09T09:30:00.000Z",
+      "updatedAt": "2026-01-09T09:30:00.000Z"
+    },
+    {
+      "id": "tx_014",
+      "description": "Netflix subscription",
+      "amount": 4500,
+      "category": "Entertainment",
+      "date": "2026-01-10",
+      "type": "expense",
+      "createdAt": "2026-01-10T10:00:00.000Z",
+      "updatedAt": "2026-01-10T10:00:00.000Z"
+    },
+    {
+      "id": "tx_015",
+      "description": "Freelance website content writing",
+      "amount": 28000,
+      "category": "Freelance",
+      "date": "2026-01-10",
+      "type": "income",
+      "createdAt": "2026-01-10T13:00:00.000Z",
+      "updatedAt": "2026-01-10T13:00:00.000Z"
+    },
+    {
+      "id": "tx_016",
+      "description": "Library late fine",
+      "amount": 1000,
+      "category": "Fees",
+      "date": "2026-01-11",
+      "type": "expense",
+      "createdAt": "2026-01-11T11:00:00.000Z",
+      "updatedAt": "2026-01-11T11:00:00.000Z"
+    },
+    {
+      "id": "tx_017",
+      "description": "Jollof rice and chicken lunch",
+      "amount": 2500,
+      "category": "Food",
+      "date": "2026-01-12",
+      "type": "expense",
+      "createdAt": "2026-01-12T13:00:00.000Z",
+      "updatedAt": "2026-01-12T13:00:00.000Z"
+    },
+    {
+      "id": "tx_018",
+      "description": "Danfo bus to market",
+      "amount": 700,
+      "category": "Transport",
+      "date": "2026-01-12",
+      "type": "expense",
+      "createdAt": "2026-01-12T08:45:00.000Z",
+      "updatedAt": "2026-01-12T08:45:00.000Z"
+    },
+    {
+      "id": "tx_019",
+      "description": "Data structures textbook",
+      "amount": 14000,
+      "category": "Books",
+      "date": "2026-01-13",
+      "type": "expense",
+      "createdAt": "2026-01-13T10:00:00.000Z",
+      "updatedAt": "2026-01-13T10:00:00.000Z"
+    },
+    {
+      "id": "tx_020",
+      "description": "Football match tickets",
+      "amount": 3000,
+      "category": "Entertainment",
+      "date": "2026-01-13",
+      "type": "expense",
+      "createdAt": "2026-01-13T15:00:00.000Z",
+      "updatedAt": "2026-01-13T15:00:00.000Z"
+    },
+    {
+      "id": "tx_021",
+      "description": "Teaching assistant salary",
+      "amount": 60000,
+      "category": "Salary",
+      "date": "2026-01-14",
+      "type": "income",
+      "createdAt": "2026-01-14T09:00:00.000Z",
+      "updatedAt": "2026-01-14T09:00:00.000Z"
+    },
+    {
+      "id": "tx_022",
+      "description": "Weekly groceries",
+      "amount": 15000,
+      "category": "Food",
+      "date": "2026-01-14",
+      "type": "expense",
+      "createdAt": "2026-01-14T17:00:00.000Z",
+      "updatedAt": "2026-01-14T17:00:00.000Z"
+    },
+    {
+      "id": "tx_023",
+      "description": "Student union activity fee",
+      "amount": 5000,
+      "category": "Fees",
+      "date": "2026-01-15",
+      "type": "expense",
+      "createdAt": "2026-01-15T09:00:00.000Z",
+      "updatedAt": "2026-01-15T09:00:00.000Z"
+    },
+    {
+      "id": "tx_024",
+      "description": "Uber ride to hospital",
+      "amount": 2500,
+      "category": "Transport",
+      "date": "2026-01-15",
+      "type": "expense",
+      "createdAt": "2026-01-15T10:30:00.000Z",
+      "updatedAt": "2026-01-15T10:30:00.000Z"
+    },
+    {
+      "id": "tx_025",
+      "description": "Freelance social media graphics",
+      "amount": 22000,
+      "category": "Freelance",
+      "date": "2026-01-16",
+      "type": "income",
+      "createdAt": "2026-01-16T14:00:00.000Z",
+      "updatedAt": "2026-01-16T14:00:00.000Z"
+    },
+    {
+      "id": "tx_026",
+      "description": "Snacks and soft drinks",
+      "amount": 4000,
+      "category": "Food",
+      "date": "2026-01-16",
+      "type": "expense",
+      "createdAt": "2026-01-16T16:00:00.000Z",
+      "updatedAt": "2026-01-16T16:00:00.000Z"
+    },
+    {
+      "id": "tx_027",
+      "description": "Airtime recharge",
+      "amount": 2000,
+      "category": "Other",
+      "date": "2026-01-17",
+      "type": "expense",
+      "createdAt": "2026-01-17T09:00:00.000Z",
+      "updatedAt": "2026-01-17T09:00:00.000Z"
+    },
+    {
+      "id": "tx_028",
+      "description": "Bole and fish street food",
+      "amount": 1800,
+      "category": "Food",
+      "date": "2026-01-17",
+      "type": "expense",
+      "createdAt": "2026-01-17T13:30:00.000Z",
+      "updatedAt": "2026-01-17T13:30:00.000Z"
+    },
+    {
+      "id": "tx_029",
+      "description": "Campus bus pass",
+      "amount": 6000,
+      "category": "Transport",
+      "date": "2026-01-18",
+      "type": "expense",
+      "createdAt": "2026-01-18T08:00:00.000Z",
+      "updatedAt": "2026-01-18T08:00:00.000Z"
+    },
+    {
+      "id": "tx_030",
+      "description": "Freelance video editing",
+      "amount": 40000,
+      "category": "Freelance",
+      "date": "2026-01-19",
+      "type": "income",
+      "createdAt": "2026-01-19T11:00:00.000Z",
+      "updatedAt": "2026-01-19T11:00:00.000Z"
+    },
+    {
+      "id": "tx_031",
+      "description": "Suya and pepper soup evening",
+      "amount": 5500,
+      "category": "Food",
+      "date": "2026-01-19",
+      "type": "expense",
+      "createdAt": "2026-01-19T20:00:00.000Z",
+      "updatedAt": "2026-01-19T20:00:00.000Z"
+    },
+    {
+      "id": "tx_032",
+      "description": "Internet data subscription",
+      "amount": 3500,
+      "category": "Other",
+      "date": "2026-01-20",
+      "type": "expense",
+      "createdAt": "2026-01-20T10:00:00.000Z",
+      "updatedAt": "2026-01-20T10:00:00.000Z"
+    },
+    {
+      "id": "tx_033",
+      "description": "Spotify premium subscription",
+      "amount": 3000,
+      "category": "Entertainment",
+      "date": "2026-01-20",
+      "type": "expense",
+      "createdAt": "2026-01-20T10:00:00.000Z",
+      "updatedAt": "2026-01-20T10:00:00.000Z"
+    },
+    {
+      "id": "tx_034",
+      "description": "Gift from uncle",
+      "amount": 30000,
+      "category": "Gift",
+      "date": "2026-01-21",
+      "type": "income",
+      "createdAt": "2026-01-21T12:00:00.000Z",
+      "updatedAt": "2026-01-21T12:00:00.000Z"
+    },
+    {
+      "id": "tx_035",
+      "description": "Fried rice lunch with friends",
+      "amount": 4500,
+      "category": "Food",
+      "date": "2026-01-21",
+      "type": "expense",
+      "createdAt": "2026-01-21T13:00:00.000Z",
+      "updatedAt": "2026-01-21T13:00:00.000Z"
+    },
+    {
+      "id": "tx_036",
+      "description": "Taxi to airport for cousin",
+      "amount": 8000,
+      "category": "Transport",
+      "date": "2026-01-22",
+      "type": "expense",
+      "createdAt": "2026-01-22T06:00:00.000Z",
+      "updatedAt": "2026-01-22T06:00:00.000Z"
+    },
+    {
+      "id": "tx_037",
+      "description": "Machine learning online course",
+      "amount": 12000,
+      "category": "Books",
+      "date": "2026-01-22",
+      "type": "expense",
+      "createdAt": "2026-01-22T10:00:00.000Z",
+      "updatedAt": "2026-01-22T10:00:00.000Z"
+    },
+    {
+      "id": "tx_038",
+      "description": "Concert ticket with friends",
+      "amount": 7500,
+      "category": "Entertainment",
+      "date": "2026-01-23",
+      "type": "expense",
+      "createdAt": "2026-01-23T17:00:00.000Z",
+      "updatedAt": "2026-01-23T17:00:00.000Z"
+    },
+    {
+      "id": "tx_039",
+      "description": "Freelance PowerPoint design",
+      "amount": 15000,
+      "category": "Freelance",
+      "date": "2026-01-24",
+      "type": "income",
+      "createdAt": "2026-01-24T14:00:00.000Z",
+      "updatedAt": "2026-01-24T14:00:00.000Z"
+    },
+    {
+      "id": "tx_040",
+      "description": "Puff puff and akara breakfast",
+      "amount": 1200,
+      "category": "Food",
+      "date": "2026-01-24",
+      "type": "expense",
+      "createdAt": "2026-01-24T07:30:00.000Z",
+      "updatedAt": "2026-01-24T07:30:00.000Z"
+    },
+    {
+      "id": "tx_041",
+      "description": "Student health insurance fee",
+      "amount": 10000,
+      "category": "Fees",
+      "date": "2026-01-25",
+      "type": "expense",
+      "createdAt": "2026-01-25T09:00:00.000Z",
+      "updatedAt": "2026-01-25T09:00:00.000Z"
+    },
+    {
+      "id": "tx_042",
+      "description": "Danfo bus fare home",
+      "amount": 600,
+      "category": "Transport",
+      "date": "2026-01-25",
+      "type": "expense",
+      "createdAt": "2026-01-25T18:00:00.000Z",
+      "updatedAt": "2026-01-25T18:00:00.000Z"
+    },
+    {
+      "id": "tx_043",
+      "description": "January teaching salary top-up",
+      "amount": 25000,
+      "category": "Salary",
+      "date": "2026-01-26",
+      "type": "income",
+      "createdAt": "2026-01-26T09:00:00.000Z",
+      "updatedAt": "2026-01-26T09:00:00.000Z"
+    },
+    {
+      "id": "tx_044",
+      "description": "Egusi soup ingredients",
+      "amount": 6000,
+      "category": "Food",
+      "date": "2026-01-26",
+      "type": "expense",
+      "createdAt": "2026-01-26T16:00:00.000Z",
+      "updatedAt": "2026-01-26T16:00:00.000Z"
+    },
+    {
+      "id": "tx_045",
+      "description": "Photocopy and binding project",
+      "amount": 3000,
+      "category": "Books",
+      "date": "2026-01-27",
+      "type": "expense",
+      "createdAt": "2026-01-27T10:00:00.000Z",
+      "updatedAt": "2026-01-27T10:00:00.000Z"
+    },
+    {
+      "id": "tx_046",
+      "description": "Cinema with girlfriend",
+      "amount": 9000,
+      "category": "Entertainment",
+      "date": "2026-01-27",
+      "type": "expense",
+      "createdAt": "2026-01-27T19:00:00.000Z",
+      "updatedAt": "2026-01-27T19:00:00.000Z"
+    },
+    {
+      "id": "tx_047",
+      "description": "Freelance data analysis task",
+      "amount": 32000,
+      "category": "Freelance",
+      "date": "2026-01-28",
+      "type": "income",
+      "createdAt": "2026-01-28T11:00:00.000Z",
+      "updatedAt": "2026-01-28T11:00:00.000Z"
+    },
+    {
+      "id": "tx_048",
+      "description": "Indomie and egg breakfast",
+      "amount": 1500,
+      "category": "Food",
+      "date": "2026-01-28",
+      "type": "expense",
+      "createdAt": "2026-01-28T07:00:00.000Z",
+      "updatedAt": "2026-01-28T07:00:00.000Z"
+    },
+    {
+      "id": "tx_049",
+      "description": "Uber to school early morning",
+      "amount": 3500,
+      "category": "Transport",
+      "date": "2026-01-29",
+      "type": "expense",
+      "createdAt": "2026-01-29T06:30:00.000Z",
+      "updatedAt": "2026-01-29T06:30:00.000Z"
+    },
+    {
+      "id": "tx_050",
+      "description": "Laundry and dry cleaning",
+      "amount": 4000,
+      "category": "Other",
+      "date": "2026-01-29",
+      "type": "expense",
+      "createdAt": "2026-01-29T14:00:00.000Z",
+      "updatedAt": "2026-01-29T14:00:00.000Z"
+    },
+    {
+      "id": "tx_051",
+      "description": "February scholarship disbursement",
+      "amount": 150000,
+      "category": "Scholarship",
+      "date": "2026-02-01",
+      "type": "income",
+      "createdAt": "2026-02-01T08:00:00.000Z",
+      "updatedAt": "2026-02-01T08:00:00.000Z"
+    },
+    {
+      "id": "tx_052",
+      "description": "Rice and stew lunch",
+      "amount": 2000,
+      "category": "Food",
+      "date": "2026-02-01",
+      "type": "expense",
+      "createdAt": "2026-02-01T13:00:00.000Z",
+      "updatedAt": "2026-02-01T13:00:00.000Z"
+    },
+    {
+      "id": "tx_053",
+      "description": "Monthly bus pass",
+      "amount": 8000,
+      "category": "Transport",
+      "date": "2026-02-02",
+      "type": "expense",
+      "createdAt": "2026-02-02T08:00:00.000Z",
+      "updatedAt": "2026-02-02T08:00:00.000Z"
+    },
+    {
+      "id": "tx_054",
+      "description": "Database systems textbook",
+      "amount": 16000,
+      "category": "Books",
+      "date": "2026-02-02",
+      "type": "expense",
+      "createdAt": "2026-02-02T10:00:00.000Z",
+      "updatedAt": "2026-02-02T10:00:00.000Z"
+    },
+    {
+      "id": "tx_055",
+      "description": "Freelance UI mockup project",
+      "amount": 40000,
+      "category": "Freelance",
+      "date": "2026-02-03",
+      "type": "income",
+      "createdAt": "2026-02-03T11:00:00.000Z",
+      "updatedAt": "2026-02-03T11:00:00.000Z"
+    },
+    {
+      "id": "tx_056",
+      "description": "Supermarket weekly groceries",
+      "amount": 14000,
+      "category": "Food",
+      "date": "2026-02-03",
+      "type": "expense",
+      "createdAt": "2026-02-03T16:00:00.000Z",
+      "updatedAt": "2026-02-03T16:00:00.000Z"
+    },
+    {
+      "id": "tx_057",
+      "description": "Lab access fee",
+      "amount": 10000,
+      "category": "Fees",
+      "date": "2026-02-04",
+      "type": "expense",
+      "createdAt": "2026-02-04T09:00:00.000Z",
+      "updatedAt": "2026-02-04T09:00:00.000Z"
+    },
+    {
+      "id": "tx_058",
+      "description": "Keke napep ride to class",
+      "amount": 400,
+      "category": "Transport",
+      "date": "2026-02-04",
+      "type": "expense",
+      "createdAt": "2026-02-04T07:45:00.000Z",
+      "updatedAt": "2026-02-04T07:45:00.000Z"
+    },
+    {
+      "id": "tx_059",
+      "description": "Part-time tutoring salary",
+      "amount": 45000,
+      "category": "Salary",
+      "date": "2026-02-05",
+      "type": "income",
+      "createdAt": "2026-02-05T10:00:00.000Z",
+      "updatedAt": "2026-02-05T10:00:00.000Z"
+    },
+    {
+      "id": "tx_060",
+      "description": "Amala and ewedu dinner",
+      "amount": 3200,
+      "category": "Food",
+      "date": "2026-02-05",
+      "type": "expense",
+      "createdAt": "2026-02-05T19:00:00.000Z",
+      "updatedAt": "2026-02-05T19:00:00.000Z"
+    },
+    {
+      "id": "tx_061",
+      "description": "Spotify premium February",
+      "amount": 3000,
+      "category": "Entertainment",
+      "date": "2026-02-06",
+      "type": "expense",
+      "createdAt": "2026-02-06T10:00:00.000Z",
+      "updatedAt": "2026-02-06T10:00:00.000Z"
+    },
+    {
+      "id": "tx_062",
+      "description": "Airtime top-up",
+      "amount": 2000,
+      "category": "Other",
+      "date": "2026-02-06",
+      "type": "expense",
+      "createdAt": "2026-02-06T11:00:00.000Z",
+      "updatedAt": "2026-02-06T11:00:00.000Z"
+    },
+    {
+      "id": "tx_063",
+      "description": "Freelance brand identity kit",
+      "amount": 55000,
+      "category": "Freelance",
+      "date": "2026-02-07",
+      "type": "income",
+      "createdAt": "2026-02-07T14:00:00.000Z",
+      "updatedAt": "2026-02-07T14:00:00.000Z"
+    },
+    {
+      "id": "tx_064",
+      "description": "Sharwarma and juice",
+      "amount": 4500,
+      "category": "Food",
+      "date": "2026-02-07",
+      "type": "expense",
+      "createdAt": "2026-02-07T14:30:00.000Z",
+      "updatedAt": "2026-02-07T14:30:00.000Z"
+    },
+    {
+      "id": "tx_065",
+      "description": "Uber pool to island",
+      "amount": 5000,
+      "category": "Transport",
+      "date": "2026-02-08",
+      "type": "expense",
+      "createdAt": "2026-02-08T10:00:00.000Z",
+      "updatedAt": "2026-02-08T10:00:00.000Z"
+    },
+    {
+      "id": "tx_066",
+      "description": "Introduction to AI ebook",
+      "amount": 8000,
+      "category": "Books",
+      "date": "2026-02-08",
+      "type": "expense",
+      "createdAt": "2026-02-08T11:00:00.000Z",
+      "updatedAt": "2026-02-08T11:00:00.000Z"
+    },
+    {
+      "id": "tx_067",
+      "description": "Game night with roommates",
+      "amount": 3500,
+      "category": "Entertainment",
+      "date": "2026-02-08",
+      "type": "expense",
+      "createdAt": "2026-02-08T20:00:00.000Z",
+      "updatedAt": "2026-02-08T20:00:00.000Z"
+    },
+    {
+      "id": "tx_068",
+      "description": "Semester project materials fee",
+      "amount": 7500,
+      "category": "Fees",
+      "date": "2026-02-09",
+      "type": "expense",
+      "createdAt": "2026-02-09T09:00:00.000Z",
+      "updatedAt": "2026-02-09T09:00:00.000Z"
+    },
+    {
+      "id": "tx_069",
+      "description": "Bread and tea breakfast",
+      "amount": 1000,
+      "category": "Food",
+      "date": "2026-02-09",
+      "type": "expense",
+      "createdAt": "2026-02-09T07:30:00.000Z",
+      "updatedAt": "2026-02-09T07:30:00.000Z"
+    },
+    {
+      "id": "tx_070",
+      "description": "Keke napep ride home",
+      "amount": 500,
+      "category": "Transport",
+      "date": "2026-02-09",
+      "type": "expense",
+      "createdAt": "2026-02-09T18:30:00.000Z",
+      "updatedAt": "2026-02-09T18:30:00.000Z"
+    },
+    {
+      "id": "tx_071",
+      "description": "Freelance copywriting project",
+      "amount": 20000,
+      "category": "Freelance",
+      "date": "2026-02-10",
+      "type": "income",
+      "createdAt": "2026-02-10T13:00:00.000Z",
+      "updatedAt": "2026-02-10T13:00:00.000Z"
+    },
+    {
+      "id": "tx_072",
+      "description": "Catfish pepper soup",
+      "amount": 6500,
+      "category": "Food",
+      "date": "2026-02-10",
+      "type": "expense",
+      "createdAt": "2026-02-10T19:30:00.000Z",
+      "updatedAt": "2026-02-10T19:30:00.000Z"
+    },
+    {
+      "id": "tx_073",
+      "description": "Internet data 10GB bundle",
+      "amount": 5000,
+      "category": "Other",
+      "date": "2026-02-11",
+      "type": "expense",
+      "createdAt": "2026-02-11T09:00:00.000Z",
+      "updatedAt": "2026-02-11T09:00:00.000Z"
+    },
+    {
+      "id": "tx_074",
+      "description": "Danfo bus to church",
+      "amount": 400,
+      "category": "Transport",
+      "date": "2026-02-11",
+      "type": "expense",
+      "createdAt": "2026-02-11T08:00:00.000Z",
+      "updatedAt": "2026-02-11T08:00:00.000Z"
+    },
+    {
+      "id": "tx_075",
+      "description": "Second-hand laptop bag",
+      "amount": 5500,
+      "category": "Other",
+      "date": "2026-02-11",
+      "type": "expense",
+      "createdAt": "2026-02-11T14:00:00.000Z",
+      "updatedAt": "2026-02-11T14:00:00.000Z"
+    },
+    {
+      "id": "tx_076",
+      "description": "Freelance motion graphics",
+      "amount": 38000,
+      "category": "Freelance",
+      "date": "2026-02-12",
+      "type": "income",
+      "createdAt": "2026-02-12T11:00:00.000Z",
+      "updatedAt": "2026-02-12T11:00:00.000Z"
+    },
+    {
+      "id": "tx_077",
+      "description": "Moi moi and zobo drink",
+      "amount": 1500,
+      "category": "Food",
+      "date": "2026-02-12",
+      "type": "expense",
+      "createdAt": "2026-02-12T12:00:00.000Z",
+      "updatedAt": "2026-02-12T12:00:00.000Z"
+    },
+    {
+      "id": "tx_078",
+      "description": "Karaoke night out",
+      "amount": 8000,
+      "category": "Entertainment",
+      "date": "2026-02-12",
+      "type": "expense",
+      "createdAt": "2026-02-12T20:00:00.000Z",
+      "updatedAt": "2026-02-12T20:00:00.000Z"
+    },
+    {
+      "id": "tx_079",
+      "description": "Okada ride to early lecture",
+      "amount": 600,
+      "category": "Transport",
+      "date": "2026-02-13",
+      "type": "expense",
+      "createdAt": "2026-02-13T07:00:00.000Z",
+      "updatedAt": "2026-02-13T07:00:00.000Z"
+    },
+    {
+      "id": "tx_080",
+      "description": "Eba and vegetable soup",
+      "amount": 2500,
+      "category": "Food",
+      "date": "2026-02-13",
+      "type": "expense",
+      "createdAt": "2026-02-13T13:00:00.000Z",
+      "updatedAt": "2026-02-13T13:00:00.000Z"
+    },
+    {
+      "id": "tx_081",
+      "description": "Valentine gift for partner",
+      "amount": 15000,
+      "category": "Gift",
+      "date": "2026-02-14",
+      "type": "expense",
+      "createdAt": "2026-02-14T10:00:00.000Z",
+      "updatedAt": "2026-02-14T10:00:00.000Z"
+    },
+    {
+      "id": "tx_082",
+      "description": "Valentine dinner date",
+      "amount": 22000,
+      "category": "Entertainment",
+      "date": "2026-02-14",
+      "type": "expense",
+      "createdAt": "2026-02-14T19:00:00.000Z",
+      "updatedAt": "2026-02-14T19:00:00.000Z"
+    },
+    {
+      "id": "tx_083",
+      "description": "Valentine gift from partner",
+      "amount": 10000,
+      "category": "Gift",
+      "date": "2026-02-14",
+      "type": "income",
+      "createdAt": "2026-02-14T12:00:00.000Z",
+      "updatedAt": "2026-02-14T12:00:00.000Z"
+    },
+    {
+      "id": "tx_084",
+      "description": "Academic journal printing",
+      "amount": 4000,
+      "category": "Books",
+      "date": "2026-02-15",
+      "type": "expense",
+      "createdAt": "2026-02-15T10:00:00.000Z",
+      "updatedAt": "2026-02-15T10:00:00.000Z"
+    },
+    {
+      "id": "tx_085",
+      "description": "Uber ride back from date",
+      "amount": 4500,
+      "category": "Transport",
+      "date": "2026-02-15",
+      "type": "expense",
+      "createdAt": "2026-02-15T22:00:00.000Z",
+      "updatedAt": "2026-02-15T22:00:00.000Z"
+    },
+    {
+      "id": "tx_086",
+      "description": "Freelance data entry task",
+      "amount": 18000,
+      "category": "Freelance",
+      "date": "2026-02-15",
+      "type": "income",
+      "createdAt": "2026-02-15T13:00:00.000Z",
+      "updatedAt": "2026-02-15T13:00:00.000Z"
+    },
+    {
+      "id": "tx_087",
+      "description": "Beans and plantain lunch",
+      "amount": 2800,
+      "category": "Food",
+      "date": "2026-02-16",
+      "type": "expense",
+      "createdAt": "2026-02-16T13:00:00.000Z",
+      "updatedAt": "2026-02-16T13:00:00.000Z"
+    },
+    {
+      "id": "tx_088",
+      "description": "Department association dues",
+      "amount": 3000,
+      "category": "Fees",
+      "date": "2026-02-16",
+      "type": "expense",
+      "createdAt": "2026-02-16T09:00:00.000Z",
+      "updatedAt": "2026-02-16T09:00:00.000Z"
+    },
+    {
+      "id": "tx_089",
+      "description": "Danfo and keke fare",
+      "amount": 900,
+      "category": "Transport",
+      "date": "2026-02-16",
+      "type": "expense",
+      "createdAt": "2026-02-16T08:00:00.000Z",
+      "updatedAt": "2026-02-16T08:00:00.000Z"
+    },
+    {
+      "id": "tx_090",
+      "description": "Netflix February subscription",
+      "amount": 4500,
+      "category": "Entertainment",
+      "date": "2026-02-17",
+      "type": "expense",
+      "createdAt": "2026-02-17T10:00:00.000Z",
+      "updatedAt": "2026-02-17T10:00:00.000Z"
+    },
+    {
+      "id": "tx_091",
+      "description": "Evening snacks and coffee",
+      "amount": 3000,
+      "category": "Food",
+      "date": "2026-02-17",
+      "type": "expense",
+      "createdAt": "2026-02-17T20:00:00.000Z",
+      "updatedAt": "2026-02-17T20:00:00.000Z"
+    },
+    {
+      "id": "tx_092",
+      "description": "Freelance WordPress setup",
+      "amount": 45000,
+      "category": "Freelance",
+      "date": "2026-02-17",
+      "type": "income",
+      "createdAt": "2026-02-17T14:00:00.000Z",
+      "updatedAt": "2026-02-17T14:00:00.000Z"
+    },
+    {
+      "id": "tx_093",
+      "description": "Noodles and sardines",
+      "amount": 2200,
+      "category": "Food",
+      "date": "2026-02-18",
+      "type": "expense",
+      "createdAt": "2026-02-18T08:00:00.000Z",
+      "updatedAt": "2026-02-18T08:00:00.000Z"
+    },
+    {
+      "id": "tx_094",
+      "description": "Okada ride to lecture hall",
+      "amount": 500,
+      "category": "Transport",
+      "date": "2026-02-18",
+      "type": "expense",
+      "createdAt": "2026-02-18T07:30:00.000Z",
+      "updatedAt": "2026-02-18T07:30:00.000Z"
+    },
+    {
+      "id": "tx_095",
+      "description": "Study group photocopy materials",
+      "amount": 2000,
+      "category": "Books",
+      "date": "2026-02-18",
+      "type": "expense",
+      "createdAt": "2026-02-18T10:00:00.000Z",
+      "updatedAt": "2026-02-18T10:00:00.000Z"
+    },
+    {
+      "id": "tx_096",
+      "description": "February teaching assistant salary",
+      "amount": 60000,
+      "category": "Salary",
+      "date": "2026-02-18",
+      "type": "income",
+      "createdAt": "2026-02-18T09:00:00.000Z",
+      "updatedAt": "2026-02-18T09:00:00.000Z"
+    },
+    {
+      "id": "tx_097",
+      "description": "Buka stew and swallow",
+      "amount": 3500,
+      "category": "Food",
+      "date": "2026-02-19",
+      "type": "expense",
+      "createdAt": "2026-02-19T13:30:00.000Z",
+      "updatedAt": "2026-02-19T13:30:00.000Z"
+    },
+    {
+      "id": "tx_098",
+      "description": "Barbing and grooming",
+      "amount": 2500,
+      "category": "Other",
+      "date": "2026-02-19",
+      "type": "expense",
+      "createdAt": "2026-02-19T11:00:00.000Z",
+      "updatedAt": "2026-02-19T11:00:00.000Z"
+    },
+    {
+      "id": "tx_099",
+      "description": "Uber pool to school",
+      "amount": 2000,
+      "category": "Transport",
+      "date": "2026-02-20",
+      "type": "expense",
+      "createdAt": "2026-02-20T07:30:00.000Z",
+      "updatedAt": "2026-02-20T07:30:00.000Z"
+    },
+    {
+      "id": "tx_100",
+      "description": "Freelance data entry task",
+      "amount": 18000,
+      "category": "Freelance",
+      "date": "2026-02-20",
+      "type": "income",
+      "createdAt": "2026-02-20T13:00:00.000Z",
+      "updatedAt": "2026-02-20T13:00:00.000Z"
+    },
+     {
+      "id": "tx_101",
+      "description": "Pounded yam and egusi lunch",
+      "amount": 3500,
+      "category": "Food",
+      "date": "2026-02-21",
+      "type": "expense",
+      "createdAt": "2026-02-21T13:00:00.000Z",
+      "updatedAt": "2026-02-21T13:00:00.000Z"
+    },
+    {
+      "id": "tx_102",
+      "description": "Okada ride to campus",
+      "amount": 500,
+      "category": "Transport",
+      "date": "2026-02-21",
+      "type": "expense",
+      "createdAt": "2026-02-21T07:30:00.000Z",
+      "updatedAt": "2026-02-21T07:30:00.000Z"
+    },
+    {
+      "id": "tx_103",
+      "description": "Freelance email template design",
+      "amount": 25000,
+      "category": "Freelance",
+      "date": "2026-02-22",
+      "type": "income",
+      "createdAt": "2026-02-22T11:00:00.000Z",
+      "updatedAt": "2026-02-22T11:00:00.000Z"
+    },
+    {
+      "id": "tx_104",
+      "description": "Stationery and pens",
+      "amount": 2500,
+      "category": "Books",
+      "date": "2026-02-22",
+      "type": "expense",
+      "createdAt": "2026-02-22T10:00:00.000Z",
+      "updatedAt": "2026-02-22T10:00:00.000Z"
+    },
+    {
+      "id": "tx_105",
+      "description": "Danfo bus to mainland",
+      "amount": 800,
+      "category": "Transport",
+      "date": "2026-02-23",
+      "type": "expense",
+      "createdAt": "2026-02-23T08:00:00.000Z",
+      "updatedAt": "2026-02-23T08:00:00.000Z"
+    },
+    {
+      "id": "tx_106",
+      "description": "Chicken and chips takeout",
+      "amount": 5500,
+      "category": "Food",
+      "date": "2026-02-23",
+      "type": "expense",
+      "createdAt": "2026-02-23T19:00:00.000Z",
+      "updatedAt": "2026-02-23T19:00:00.000Z"
+    },
+    {
+      "id": "tx_107",
+      "description": "Gift from older sister",
+      "amount": 20000,
+      "category": "Gift",
+      "date": "2026-02-24",
+      "type": "income",
+      "createdAt": "2026-02-24T12:00:00.000Z",
+      "updatedAt": "2026-02-24T12:00:00.000Z"
+    },
+    {
+      "id": "tx_108",
+      "description": "Course registration portal fee",
+      "amount": 15000,
+      "category": "Fees",
+      "date": "2026-02-24",
+      "type": "expense",
+      "createdAt": "2026-02-24T09:00:00.000Z",
+      "updatedAt": "2026-02-24T09:00:00.000Z"
+    },
+    {
+      "id": "tx_109",
+      "description": "Moi moi and cold drink",
+      "amount": 2000,
+      "category": "Food",
+      "date": "2026-02-25",
+      "type": "expense",
+      "createdAt": "2026-02-25T12:30:00.000Z",
+      "updatedAt": "2026-02-25T12:30:00.000Z"
+    },
+    {
+      "id": "tx_110",
+      "description": "Freelance Python script task",
+      "amount": 30000,
+      "category": "Freelance",
+      "date": "2026-02-25",
+      "type": "income",
+      "createdAt": "2026-02-25T14:00:00.000Z",
+      "updatedAt": "2026-02-25T14:00:00.000Z"
+    },
+    {
+      "id": "tx_111",
+      "description": "Internet data 5GB bundle",
+      "amount": 3000,
+      "category": "Other",
+      "date": "2026-02-25",
+      "type": "expense",
+      "createdAt": "2026-02-25T10:00:00.000Z",
+      "updatedAt": "2026-02-25T10:00:00.000Z"
+    },
+    {
+      "id": "tx_112",
+      "description": "Board game night with friends",
+      "amount": 4000,
+      "category": "Entertainment",
+      "date": "2026-02-26",
+      "type": "expense",
+      "createdAt": "2026-02-26T20:00:00.000Z",
+      "updatedAt": "2026-02-26T20:00:00.000Z"
+    },
+    {
+      "id": "tx_113",
+      "description": "Keke napep to market",
+      "amount": 400,
+      "category": "Transport",
+      "date": "2026-02-26",
+      "type": "expense",
+      "createdAt": "2026-02-26T10:00:00.000Z",
+      "updatedAt": "2026-02-26T10:00:00.000Z"
+    },
+    {
+      "id": "tx_114",
+      "description": "Beans porridge and plantain",
+      "amount": 2800,
+      "category": "Food",
+      "date": "2026-02-27",
+      "type": "expense",
+      "createdAt": "2026-02-27T13:00:00.000Z",
+      "updatedAt": "2026-02-27T13:00:00.000Z"
+    },
+    {
+      "id": "tx_115",
+      "description": "Airtime recharge MTN",
+      "amount": 1500,
+      "category": "Other",
+      "date": "2026-02-27",
+      "type": "expense",
+      "createdAt": "2026-02-27T09:00:00.000Z",
+      "updatedAt": "2026-02-27T09:00:00.000Z"
+    },
+    {
+      "id": "tx_116",
+      "description": "February end tutoring salary",
+      "amount": 45000,
+      "category": "Salary",
+      "date": "2026-02-28",
+      "type": "income",
+      "createdAt": "2026-02-28T09:00:00.000Z",
+      "updatedAt": "2026-02-28T09:00:00.000Z"
+    },
+    {
+      "id": "tx_117",
+      "description": "Uber ride to friend birthday",
+      "amount": 3500,
+      "category": "Transport",
+      "date": "2026-02-28",
+      "type": "expense",
+      "createdAt": "2026-02-28T17:00:00.000Z",
+      "updatedAt": "2026-02-28T17:00:00.000Z"
+    },
+    {
+      "id": "tx_118",
+      "description": "March scholarship disbursement",
+      "amount": 150000,
+      "category": "Scholarship",
+      "date": "2026-03-02",
+      "type": "income",
+      "createdAt": "2026-03-02T08:00:00.000Z",
+      "updatedAt": "2026-03-02T08:00:00.000Z"
+    },
+    {
+      "id": "tx_119",
+      "description": "Semo and vegetable soup",
+      "amount": 3200,
+      "category": "Food",
+      "date": "2026-03-02",
+      "type": "expense",
+      "createdAt": "2026-03-02T13:00:00.000Z",
+      "updatedAt": "2026-03-02T13:00:00.000Z"
+    },
+    {
+      "id": "tx_120",
+      "description": "Algorithms and data structures book",
+      "amount": 17000,
+      "category": "Books",
+      "date": "2026-03-03",
+      "type": "expense",
+      "createdAt": "2026-03-03T10:00:00.000Z",
+      "updatedAt": "2026-03-03T10:00:00.000Z"
+    },
+    {
+      "id": "tx_121",
+      "description": "Freelance mobile app UI design",
+      "amount": 60000,
+      "category": "Freelance",
+      "date": "2026-03-03",
+      "type": "income",
+      "createdAt": "2026-03-03T14:00:00.000Z",
+      "updatedAt": "2026-03-03T14:00:00.000Z"
+    },
+    {
+      "id": "tx_122",
+      "description": "Bus pass March",
+      "amount": 8000,
+      "category": "Transport",
+      "date": "2026-03-04",
+      "type": "expense",
+      "createdAt": "2026-03-04T08:00:00.000Z",
+      "updatedAt": "2026-03-04T08:00:00.000Z"
+    },
+    {
+      "id": "tx_123",
+      "description": "Lab coat and safety gear",
+      "amount": 12000,
+      "category": "Fees",
+      "date": "2026-03-04",
+      "type": "expense",
+      "createdAt": "2026-03-04T09:00:00.000Z",
+      "updatedAt": "2026-03-04T09:00:00.000Z"
+    },
+    {
+      "id": "tx_124",
+      "description": "Suya and soft drink evening",
+      "amount": 4500,
+      "category": "Food",
+      "date": "2026-03-05",
+      "type": "expense",
+      "createdAt": "2026-03-05T19:30:00.000Z",
+      "updatedAt": "2026-03-05T19:30:00.000Z"
+    },
+    {
+      "id": "tx_125",
+      "description": "YouTube Premium subscription",
+      "amount": 3200,
+      "category": "Entertainment",
+      "date": "2026-03-05",
+      "type": "expense",
+      "createdAt": "2026-03-05T10:00:00.000Z",
+      "updatedAt": "2026-03-05T10:00:00.000Z"
+    },
+    {
+      "id": "tx_126",
+      "description": "Freelance research summary writing",
+      "amount": 22000,
+      "category": "Freelance",
+      "date": "2026-03-06",
+      "type": "income",
+      "createdAt": "2026-03-06T13:00:00.000Z",
+      "updatedAt": "2026-03-06T13:00:00.000Z"
+    },
+    {
+      "id": "tx_127",
+      "description": "Indomie pepper soup pack",
+      "amount": 1800,
+      "category": "Food",
+      "date": "2026-03-06",
+      "type": "expense",
+      "createdAt": "2026-03-06T08:00:00.000Z",
+      "updatedAt": "2026-03-06T08:00:00.000Z"
+    },
+    {
+      "id": "tx_128",
+      "description": "Haircut and grooming",
+      "amount": 3000,
+      "category": "Other",
+      "date": "2026-03-07",
+      "type": "expense",
+      "createdAt": "2026-03-07T11:00:00.000Z",
+      "updatedAt": "2026-03-07T11:00:00.000Z"
+    },
+    {
+      "id": "tx_129",
+      "description": "Keke napep ride to lecture",
+      "amount": 400,
+      "category": "Transport",
+      "date": "2026-03-07",
+      "type": "expense",
+      "createdAt": "2026-03-07T07:30:00.000Z",
+      "updatedAt": "2026-03-07T07:30:00.000Z"
+    },
+    {
+      "id": "tx_130",
+      "description": "March teaching assistant salary",
+      "amount": 60000,
+      "category": "Salary",
+      "date": "2026-03-07",
+      "type": "income",
+      "createdAt": "2026-03-07T09:00:00.000Z",
+      "updatedAt": "2026-03-07T09:00:00.000Z"
+    }
+  ],
+  "settings": {
+    "userName": "",
+    "budgetCap": null,
+    "baseCurrency": "NGN",
+    "rateUSD": 0.00069,
+    "rateNGN": 0.92
+  }
+}

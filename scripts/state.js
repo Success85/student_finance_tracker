@@ -1,11 +1,10 @@
-// This is the app state management
+// scripts/state.js — Application state management
 
 import { loadTransactions, saveTransactions, loadSettings, saveSettings } from './storage.js';
 
 let transactions = [];
 
 let settings = {};
-
 
 let sortKey = 'date';
 
@@ -15,19 +14,14 @@ let searchQuery = '';
 
 let caseSensitive = false;
 
-/** @type {string} Type filter */
 let filterType = 'all';
 
-/** @type {string} Category filter */
 let filterCategory = 'all';
-
 
 export function initState() {
   transactions = loadTransactions();
   settings = loadSettings();
 }
-
-
 
 export function getTransactions() {
   return [...transactions];
@@ -167,9 +161,9 @@ export function getCategories() {
   return [...cats].sort();
 }
 
-/**
- * Generate a unique ID in format txn_XXXX
- */
+
+// Generate a unique ID in format txn_XXXX
+
 export function generateId() {
   const timestamp = Date.now().toString(36).toUpperCase();
   const rand = Math.random().toString(36).slice(2, 6).toUpperCase();

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rocel — Tests</title>
+  <style>
+    :root {
+      --bg: #1E293B;
+      --surface: #1e2230;
+      --border: rgba(255,255,255,0.08);
+      --text: #e8e9ef;
+      --text-2: #9da3b5;
+      --pass: #5ddc9b;
+      --fail: #f26b6b;
+      --accent: #e8c87a;
+      --font: 'DM Sans', system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      padding: 40px 24px;
+      max-width: 960px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    header { margin-bottom: 40px; }
+    header h1 { font-size: 2rem; color: var(--accent); margin-bottom: 8px; }
+    header p { color: var(--text-2); }
+    .test-suite {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+    .suite-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .suite-header h2 { font-size: 1rem; color: var(--text); }
+    .suite-count { font-size: 0.8rem; color: var(--text-2); }
+    .test-row {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 20px;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.84rem;
+    }
+    .test-row:last-child { border-bottom: none; }
+    .test-icon { font-size: 1rem; }
+    .test-icon.pass { color: var(--pass); }
+    .test-icon.fail { color: var(--fail); }
+    .test-name { color: var(--text); }
+    .test-result { font-size: 0.74rem; color: var(--text-2); text-align: right; }
+    .test-result.fail { color: var(--fail); }
+    .summary {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      display: flex;
+      gap: 32px;
+      align-items: center;
+      margin-top: 8px;
+    }
+    .summary-num { font-size: 2rem; font-weight: 700; line-height: 1; }
+    .summary-num.pass { color: var(--pass); }
+    .summary-num.fail { color: var(--fail); }
+    .summary-label { font-size: 0.75rem; color: var(--text-2); text-transform: uppercase; letter-spacing: 0.08em; }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent);
+      text-decoration: none;
+      margin-bottom: 24px;
+      font-size: 0.9rem;
+    }
+    .back-link:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back-link">Back to Rocel</a>
+  <header>
+    <h1>Rocel Test Suite</h1>
+    <p>Validation and security tests for all input fields and utility functions</p>
+  </header>
+
+  <div id="testOutput"></div>
+  <div class="summary" id="summary">Running tests...</div>
+
+  <script type="module">
+    const {
+      validateDescription, validateAmount, validateDate, validateCategory,
+      validateRate, validateBudgetCap, validateName,
+      checkDuplicateWords, compileRegex, escapeHtml, sanitize
+    } = await import('./scripts/validators.js');
+
+    function expect(actual, expected) {
+      const pass = actual === expected;
+      return { pass, msg: pass ? 'OK' : 'Expected [' + expected + '] got [' + actual + ']' };
+    }
+    function expectTruthy(val, hint) {
+      return { pass: !!val, msg: !!val ? 'OK' : (hint || 'Expected an error but got empty string') };
+    }
+    function expectFalsy(val, hint) {
+      return { pass: !val, msg: !val ? 'OK' : (hint || 'Expected falsy but got: ' + String(val)) };
+    }
+
+    // SUITE 1 - Description Basic Rules
+    var suite1 = [
+      { name: 'Valid description',         fn: function() { return expect(validateDescription('Coffee with friends'), ''); } },
+      { name: 'Empty string gives error',  fn: function() { return expectTruthy(validateDescription('')); } },
+      { name: 'Leading space gives error', fn: function() { return expectTruthy(validateDescription(' leading')); } },
+      { name: 'Trailing space gives error',fn: function() { return expectTruthy(validateDescription('trailing ')); } },
+      { name: 'Single character is valid', fn: function() { return expect(validateDescription('A'), ''); } },
+      { name: '201 chars gives error',     fn: function() { return expectTruthy(validateDescription('A'.repeat(201))); } },
+      { name: '200 chars is valid',        fn: function() { return expect(validateDescription('A'.repeat(200)), ''); } },
+      { name: 'Numbers in text is valid',  fn: function() { return expect(validateDescription('Bus pass 2026'), ''); } },
+    ];
+
+    // SUITE 2 - Description Security
+    var scriptTag = '<' + 'script' + '>' + 'alert(1)' + '<' + '/script' + '>';
+    var iframeTag = '<' + 'iframe src=x' + '>';
+    var suite2 = [
+      { name: 'HTML script tag gives error',    fn: function() { return expectTruthy(validateDescription(scriptTag)); } },
+      { name: 'HTML iframe tag gives error',    fn: function() { return expectTruthy(validateDescription(iframeTag)); } },
+      { name: 'javascript protocol gives error',fn: function() { return expectTruthy(validateDescription('javascript:alert(1)')); } },
+      { name: 'onclick handler gives error',    fn: function() { return expectTruthy(validateDescription('onclick=alert(1)')); } },
+      { name: 'onerror handler gives error',    fn: function() { return expectTruthy(validateDescription('onerror=1')); } },
+      { name: 'alert() gives error',            fn: function() { return expectTruthy(validateDescription('alert(hello)')); } },
+      { name: 'msgbox gives error',             fn: function() { return expectTruthy(validateDescription('msgbox hello')); } },
+      { name: 'console.log gives error',        fn: function() { return expectTruthy(validateDescription('console.log(x)')); } },
+      { name: 'prompt() gives error',           fn: function() { return expectTruthy(validateDescription('prompt(x)')); } },
+      { name: 'eval() gives error',             fn: function() { return expectTruthy(validateDescription('eval(x)')); } },
+      { name: 'rm command gives error',         fn: function() { return expectTruthy(validateDescription('rm -rf /')); } },
+      { name: 'sudo command gives error',       fn: function() { return expectTruthy(validateDescription('sudo reboot')); } },
+      { name: 'bash command gives error',       fn: function() { return expectTruthy(validateDescription('bash script.sh')); } },
+      { name: 'DROP TABLE gives error',         fn: function() { return expectTruthy(validateDescription('DROP TABLE users')); } },
+      { name: 'SELECT FROM gives error',        fn: function() { return expectTruthy(validateDescription('SELECT FROM tx')); } },
+      { name: 'Encoded %3c gives error',        fn: function() { return expectTruthy(validateDescription('%3cscript%3e')); } },
+      { name: 'Path traversal gives error',     fn: function() { return expectTruthy(validateDescription('../../etc/passwd')); } },
+      { name: 'vbscript gives error',           fn: function() { return expectTruthy(validateDescription('vbscript:msgbox(1)')); } },
+    ];
+
+    // SUITE 3 - Amount Validation
+    var suite3 = [
+      { name: 'Valid integer 45',              fn: function() { return expect(validateAmount('45'), ''); } },
+      { name: 'Valid decimal 12.50',           fn: function() { return expect(validateAmount('12.50'), ''); } },
+      { name: 'Valid 0.01',                    fn: function() { return expect(validateAmount('0.01'), ''); } },
+      { name: 'Valid 0.99',                    fn: function() { return expect(validateAmount('0.99'), ''); } },
+      { name: 'Valid large number 999999',     fn: function() { return expect(validateAmount('999999'), ''); } },
+      { name: 'Empty gives error',             fn: function() { return expectTruthy(validateAmount('')); } },
+      { name: 'Letters abc gives error',       fn: function() { return expectTruthy(validateAmount('abc')); } },
+      { name: 'Mixed 12abc gives error',       fn: function() { return expectTruthy(validateAmount('12abc')); } },
+      { name: 'NaN string gives error',        fn: function() { return expectTruthy(validateAmount('NaN')); } },
+      { name: 'Dollar sign gives error',       fn: function() { return expectTruthy(validateAmount('$100')); } },
+      { name: 'Negative number gives error',   fn: function() { return expectTruthy(validateAmount('-5')); } },
+      { name: 'Zero gives error',              fn: function() { return expectTruthy(validateAmount('0')); } },
+      { name: 'Three decimals gives error',    fn: function() { return expectTruthy(validateAmount('12.500')); } },
+      { name: 'Multiple dots gives error',     fn: function() { return expectTruthy(validateAmount('12.5.0')); } },
+      { name: 'Over 1 billion gives error',    fn: function() { return expectTruthy(validateAmount('1000000001')); } },
+      { name: 'Whitespace only gives error',   fn: function() { return expectTruthy(validateAmount('   ')); } },
+      { name: 'Hash symbol gives error',       fn: function() { return expectTruthy(validateAmount('#100')); } },
+    ];
+
+    // SUITE 4 - Date Validation
+    var suite4 = [
+      { name: 'Valid date 2025-09-29',         fn: function() { return expect(validateDate('2025-09-29'), ''); } },
+      { name: 'Valid edge 2025-12-31',         fn: function() { return expect(validateDate('2025-12-31'), ''); } },
+      { name: 'Valid edge 2025-01-01',         fn: function() { return expect(validateDate('2025-01-01'), ''); } },
+      { name: 'Month 13 gives error',          fn: function() { return expectTruthy(validateDate('2025-13-01')); } },
+      { name: 'Day 00 gives error',            fn: function() { return expectTruthy(validateDate('2025-01-00')); } },
+      { name: 'Day 32 gives error',            fn: function() { return expectTruthy(validateDate('2025-01-32')); } },
+      { name: 'Wrong format gives error',      fn: function() { return expectTruthy(validateDate('09/29/2025')); } },
+      { name: 'Empty gives error',             fn: function() { return expectTruthy(validateDate('')); } },
+      { name: 'Future date gives error',       fn: function() { return expectTruthy(validateDate('2099-01-01')); } },
+    ];
+
+    // SUITE 5 - Category Validation
+    var suite5 = [
+      { name: 'Valid Food',                    fn: function() { return expect(validateCategory('Food'), ''); } },
+      { name: 'Valid Part-time',               fn: function() { return expect(validateCategory('Part-time'), ''); } },
+      { name: 'Valid Personal Care',           fn: function() { return expect(validateCategory('Personal Care'), ''); } },
+      { name: 'Empty gives error',             fn: function() { return expectTruthy(validateCategory('')); } },
+      { name: 'Numbers gives error',           fn: function() { return expectTruthy(validateCategory('Category1')); } },
+      { name: 'At sign gives error',           fn: function() { return expectTruthy(validateCategory('Food@Home')); } },
+      { name: 'Leading hyphen gives error',    fn: function() { return expectTruthy(validateCategory('-Invalid')); } },
+    ];
+
+    // SUITE 6 - Name Validation
+    var suite6 = [
+      { name: 'Valid name John',               fn: function() { return expect(validateName('John'), ''); } },
+      { name: 'Valid name Jean-Paul',          fn: function() { return expect(validateName('Jean-Paul'), ''); } },
+      { name: 'Empty gives error',             fn: function() { return expectTruthy(validateName('')); } },
+      { name: 'Single char gives error',       fn: function() { return expectTruthy(validateName('A')); } },
+      { name: '51 chars gives error',          fn: function() { return expectTruthy(validateName('A'.repeat(51))); } },
+      { name: 'Numbers in name gives error',   fn: function() { return expectTruthy(validateName('John123')); } },
+      { name: 'alert() in name gives error',   fn: function() { return expectTruthy(validateName('alert(1)')); } },
+    ];
+
+    // SUITE 7 - Duplicate Word Detection
+    var suite7 = [
+      { name: 'the the is detected',           fn: function() { return expectTruthy(checkDuplicateWords('the the coffee')); } },
+      { name: 'The the case is detected',      fn: function() { return expectTruthy(checkDuplicateWords('The the coffee')); } },
+      { name: 'No duplicate returns empty',    fn: function() { return expect(checkDuplicateWords('Coffee with friends'), ''); } },
+      { name: 'eat eat is detected',           fn: function() { return expectTruthy(checkDuplicateWords('I eat eat often')); } },
+      { name: 'it its is not a duplicate',     fn: function() { return expect(checkDuplicateWords('it its value'), ''); } },
+    ];
+
+    // SUITE 8 - Safe Regex Compiler
+    var suite8 = [
+      { name: 'Valid pattern compiles',        fn: function() { return expectTruthy(compileRegex('coffee')); } },
+      { name: 'Invalid pattern returns null',  fn: function() { return expectFalsy(compileRegex('[invalid')); } },
+      { name: 'Empty string returns null',     fn: function() { return expectFalsy(compileRegex('')); } },
+      { name: 'Case-insensitive match works',  fn: function() {
+        var re = compileRegex('coffee', 'i');
+        return expectTruthy(re && re.test('Coffee with friends'));
+      }},
+      { name: 'Lookahead pattern works',       fn: function() {
+        var re = compileRegex('\\d+(?=\\.\\d{2})');
+        return expectTruthy(re && re.test('12.50'));
+      }},
+      { name: 'Back-reference pattern works',  fn: function() {
+        var re = compileRegex('\\b(\\w+)\\s+\\1\\b', 'i');
+        return expectTruthy(re && re.test('the the'));
+      }},
+    ];
+
+    // SUITE 9 - Budget Cap and Rate
+    var suite9 = [
+      { name: 'Valid cap 500.00',              fn: function() { return expect(validateBudgetCap('500.00'), ''); } },
+      { name: 'Empty cap is valid (optional)', fn: function() { return expect(validateBudgetCap(''), ''); } },
+      { name: 'Zero cap gives error',          fn: function() { return expectTruthy(validateBudgetCap('0')); } },
+      { name: 'Letters in cap give error',     fn: function() { return expectTruthy(validateBudgetCap('5OO')); } },
+      { name: 'Valid rate 0.92',               fn: function() { return expect(validateRate('0.92'), ''); } },
+      { name: 'Valid rate integer 1',          fn: function() { return expect(validateRate('1'), ''); } },
+      { name: 'Zero rate gives error',         fn: function() { return expectTruthy(validateRate('0')); } },
+      { name: 'Negative rate gives error',     fn: function() { return expectTruthy(validateRate('-0.5')); } },
+      { name: 'Letters in rate give error',    fn: function() { return expectTruthy(validateRate('abc')); } },
+    ];
+
+    // SUITE 10 - escapeHtml and sanitize
+    var suite10 = [
+      { name: 'escapeHtml converts lt',        fn: function() { return expect(escapeHtml('<'), '&lt;'); } },
+      { name: 'escapeHtml converts gt',        fn: function() { return expect(escapeHtml('>'), '&gt;'); } },
+      { name: 'escapeHtml converts amp',       fn: function() { return expect(escapeHtml('&'), '&amp;'); } },
+      { name: 'escapeHtml converts quote',     fn: function() { return expect(escapeHtml('"'), '&quot;'); } },
+      { name: 'sanitize strips script tags',   fn: function() {
+        var bad = '<' + 'script' + '>alert(1)<' + '/script' + '>';
+        return expectFalsy(sanitize(bad).indexOf('<' + 'script') !== -1, 'script tag should be stripped');
+      }},
+      { name: 'sanitize strips javascript',    fn: function() {
+        return expectFalsy(sanitize('javascript:alert(1)').indexOf('javascript:') !== -1, 'js protocol should be stripped');
+      }},
+      { name: 'sanitize strips onclick',       fn: function() {
+        return expectFalsy(sanitize('onclick=alert(1)').indexOf('onclick=') !== -1, 'event handler should be stripped');
+      }},
+      { name: 'sanitize keeps normal text',    fn: function() {
+        return expect(sanitize('Lunch at cafeteria'), 'Lunch at cafeteria');
+      }},
+    ];
+
+    // RENDER
+    var suites = [
+      { name: '1 - Description: Basic Rules',              tests: suite1  },
+      { name: '2 - Description: Security and XSS',         tests: suite2  },
+      { name: '3 - Amount Validation',                     tests: suite3  },
+      { name: '4 - Date Validation',                       tests: suite4  },
+      { name: '5 - Category Validation',                   tests: suite5  },
+      { name: '6 - Name Validation',                       tests: suite6  },
+      { name: '7 - Duplicate Word Detection',              tests: suite7  },
+      { name: '8 - Safe Regex Compiler',                   tests: suite8  },
+      { name: '9 - Budget Cap and Rate Validation',        tests: suite9  },
+      { name: '10 - escapeHtml and Sanitize',              tests: suite10 },
+    ];
+
+    var totalPass = 0;
+    var totalFail = 0;
+    var output = document.getElementById('testOutput');
+
+    for (var s = 0; s < suites.length; s++) {
+      var suite = suites[s];
+      var suitePass = 0;
+      var suiteFail = 0;
+      var rows = [];
+
+      for (var i = 0; i < suite.tests.length; i++) {
+        var t = suite.tests[i];
+        var result;
+        try {
+          result = t.fn();
+        } catch(e) {
+          result = { pass: false, msg: 'Threw: ' + e.message };
+        }
+
+        var pass = result && result.pass ? true : false;
+        if (pass) { suitePass++; totalPass++; } else { suiteFail++; totalFail++; }
+
+        rows.push(
+          '<div class="test-row">' +
+            '<span class="test-icon ' + (pass ? 'pass' : 'fail') + '">' + (pass ? 'V' : 'X') + '</span>' +
+            '<span class="test-name">' + t.name + '</span>' +
+            '<span class="test-result ' + (pass ? '' : 'fail') + '">' + (result ? result.msg : '') + '</span>' +
+          '</div>'
+        );
+      }
+
+      output.innerHTML +=
+        '<div class="test-suite">' +
+          '<div class="suite-header">' +
+            '<h2>' + suite.name + '</h2>' +
+            '<span class="suite-count">' + suitePass + '/' + (suitePass + suiteFail) + ' passed</span>' +
+          '</div>' +
+          rows.join('') +
+        '</div>';
+    }
+
+    var summary = document.getElementById('summary');
+    var allGood = totalFail === 0;
+    summary.innerHTML =
+      '<div><div class="summary-num pass">' + totalPass + '</div><div class="summary-label">Passed</div></div>' +
+      '<div><div class="summary-num fail">' + totalFail + '</div><div class="summary-label">Failed</div></div>' +
+      '<div><div class="summary-num" style="color:var(--accent)">' + (totalPass + totalFail) + '</div><div class="summary-label">Total</div></div>' +
+      '<div style="margin-left:auto;font-size:1.1rem;font-weight:600;color:' + (allGood ? 'var(--pass)' : 'var(--fail)') + '">' +
+        (allGood ? 'All tests passed!' : totalFail + ' test(s) failed') +
+      '</div>';
+  </script>
+</body>
+</html>
