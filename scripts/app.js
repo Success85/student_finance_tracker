@@ -618,6 +618,7 @@ if (pages.includes(initialHash)) {
 if (pageId === 'dashboard') {
   renderStats();
   renderCharts();
+  renderChart();
   renderTable();
   renderCategoryFilter();
   renderDashboardWelcome();

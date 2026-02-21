@@ -544,7 +544,7 @@ function getMonthlyData() {
 export function renderAll() {
   renderStats();
   renderHomeStats();
-  // renderChart();
+  renderChart();
   renderRecentList();
   renderTable();
   renderCategoryFilter();
