@@ -59,11 +59,11 @@ export function saveSettings(settings) {
 
 function getDefaultSettings() {
   return {
-    userName: '',
+    userName: 'Eric',
     budgetCap: null,
     baseCurrency: 'NGN',
     altCurrency: 'USD',
-    exchangeRates:0.00063,
+    exchangeRates:0.00074,
     theme: 'light'
   };
 }

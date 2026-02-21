@@ -517,7 +517,7 @@ document.getElementById('clearBudgetBtn')?.addEventListener('click', () => {
 
 // Currency form
 
-const RATES = { USD: 0.00069, RWF: 1.02 };
+const RATES = { USD: 0.00074, RWF: 1.02 };
 
 document.getElementById('convertInput')?.addEventListener('input', (e) => {
   const val = parseFloat(e.target.value);

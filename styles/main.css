@@ -483,7 +483,7 @@ a {
 }
 
 .hero-title {
-  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-size: clamp(1.4rem, 3vw, 3rem);
   color: var(--text);
   margin-bottom: 16px;
   line-height: 1.1;
@@ -1606,6 +1606,13 @@ kbd {
 }
 
 .balance-card h2, .balance-card .big-number { color: white; }
+
+.chart-card2 {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+}
 
 .app-footer {
   margin-left: 0;

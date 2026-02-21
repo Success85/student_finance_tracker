@@ -20,8 +20,8 @@ const RE_RATE = /^\d+(\.\d{1,6})?$/;
 
 const BLOCKED_PATTERNS = [
   // HTML / Script injection
-  { re: /<[^>]*>/i,                        msg: 'HTML tags are not allowed.' },
-  { re: /<\/?(script|iframe|object|embed|form|input|link|meta|style|svg|img|a)[^>]*>/i, msg: 'HTML tags are not allowed.' },
+  { re: /<[^>]*>/i,                        msg: 'Invalid content detected.' },
+  { re: /<\/?(script|iframe|object|embed|form|input|link|meta|style|svg|img|a)[^>]*>/i, msg: 'Invalid content detected.' },
 
   // JS / protocol attacks
   { re: /javascript\s*:/i,                 msg: 'Invalid content detected.' },
@@ -40,13 +40,13 @@ const BLOCKED_PATTERNS = [
   { re: /\b(select|insert|update|delete|drop|alter|create|truncate|exec|execute|union|xp_)\b/i, msg: 'Invalid content detected.' },
 
   // Message box / alert / console commands
-  { re: /\b(alert|confirm|prompt|msgbox|console\s*\.|document\s*\.|window\s*\.|process\s*\.|require\s*\()\b/i, msg: 'Command input is not allowed.' },
+  { re: /\b(alert|confirm|prompt|msgbox|console\s*\.|document\s*\.|window\s*\.|process\s*\.|require\s*\()\b/i, msg: 'Invalid content detected.' },
 
   // Path traversal
   { re: /(\.\.[/\\]|[/\\]\.\.|%2e%2e)/i,  msg: 'Invalid content detected.' },
 
   // Encoded attacks
-  { re: /(%3c|%3e|%22|%27|%60|&#x|&#\d)/i, msg: 'Encoded characters are not allowed.' },
+  { re: /(%3c|%3e|%22|%27|%60|&#x|&#\d)/i, msg: 'Invalid content detected.' },
 ];
 
 // Returns error message string or empty string if clean.
@@ -59,9 +59,10 @@ function detectMalicious(val) {
 
 
 export function validateDescription(val) {
-  if (!val || val.trim() === '')   return 'Description is required.';
-  if (!RE_DESCRIPTION.test(val))  return 'Description must not start or end with spaces.';
-  if (val.length > 200)           return 'Description must be 200 characters or fewer.';
+  val = val ? val.trim() : '';
+
+  if (val === '') return 'Description is required.';
+  if (val.length > 100) return 'Description must be 100 characters or fewer.';
 
   const malicious = detectMalicious(val);
   if (malicious) return malicious;

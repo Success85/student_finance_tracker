@@ -1,159 +1,285 @@
-# Rocel — Student Finance Tracker
+# 💰 Rocel Student Finance Tracker
 
-> A fully accessible, responsive, vanilla HTML/CSS/JS student finance tracking app.  
-> **Theme:** Student Finance Tracker  
-> **Live Demo:** [GitHub Pages URL]  
-
----
-
-## Overview
-
-Rocel helps students take control of their money — log income from jobs, scholarships, and gifts; track everyday expenses; visualize 7-day trends; and export data for backup or analysis.
-
-Built with **no frameworks** (pure HTML5, CSS3, ES Modules) with a focus on accessibility, mobile-first design, and clean modular code.
+A clean, modern, and responsive Personal Finance Tracker built with Vanilla JavaScript.
+This application helps users manage income and expenses, set a budget cap, and configure currency conversion — all with persistent local storage.
 
 ---
 
-## Features
+# 📌 Project Overview
 
-| Feature | Details |
-|---|---|
-| Add Income | Form with real-time regex validation |
-| Add Expense | Form with duplicate-word detection (advanced regex) |
-| Edit Transactions | Modal with full re-validation |
-| Delete Transactions | Confirm dialog before deletion |
-| Regex Search | Live search with safe compiler, case toggle, match highlighting |
-| Sort | By date, amount, or description (A↕Z) |
-| Filter | By type (income/expense) and category |
-| 7-Day Chart | CSS/JS bar chart of daily income vs expenses |
-| Stats Dashboard | Income, expenses, net balance, budget cap |
-| Budget Cap | Set monthly limit with ARIA live alerts (polite under, assertive over) |
-| localStorage | Auto-save on every change, load on startup |
-| JSON Export | Download all data as timestamped JSON |
-| JSON Import | Upload and validate JSON, merges or replaces |
-| Currency Settings | Base + 2 alt currencies with manual rates |
-| Quick Converter | Live currency conversion tool |
-| Responsive | Mobile-first: 360px / 480px / 768px / 1024px+ |
-| Accessibility | WCAG 2.1 AA target, keyboard nav, ARIA live regions |
+The Personal Finance Tracker is a fully client-side web application designed to help users:
+
+* Track income and expenses
+* Monitor total balance
+* Set and manage a spending budget
+* Configure currency display and conversion
+* Persist data using LocalStorage
+
+The project follows a modular JavaScript architecture and emphasizes clean UI, accessibility, and structured code organization.
 
 ---
 
-## Regex Catalog
+# 🚀 Features
 
-| Rule | Pattern | Valid Example | Invalid Example |
-|---|---|---|---|
-| Description (no leading/trailing spaces) | `/^\S(?:.*\S)?$/` | `"Coffee with friends"` | `" leading"` |
-| Amount (currency, up to 2 decimals) | `/^(0\|[1-9]\d*)(\.\d{1,2})?$/` | `"12.50"` | `"12.500"` |
-| Date (YYYY-MM-DD) | `/^\d{4}-(0[1-9]\|1[0-2])-(0[1-9]\|[12]\d\|3[01])$/` | `"2025-09-29"` | `"09/29/2025"` |
-| Category (letters, spaces, hyphens) | `/^[A-Za-z]+(?:[ -][A-Za-z]+)*$/` | `"Part-time"` | `"Food@Home"` |
-| **Duplicate word (back-reference)** | `/\b(\w+)\s+\1\b/i` | — | `"the the shop"` |
-| Rate (positive decimal) | `/^\d+(\.\d{1,6})?$/` | `"0.92"` | `"-0.5"` |
-| Budget cap (optional positive) | `/^(0\|[1-9]\d*)(\.\d{1,2})?$/` | `"500.00"` | `"abc"` |
+## 1️⃣ Transaction Management
 
-**Search patterns users can try:**
-- `(coffee|tea)` — Find beverages
-- `\.\d{2}\b` — Find amounts with cents
-- `\b(\w+)\s+\1\b` — Find duplicate words in descriptions
-- `^[A-Z]` — Descriptions starting with capital
-- `food|books` — Multiple categories (regex OR)
+* Add income transactions
+* Add expense transactions
+* Categorize transactions
+* Delete transactions
+* Automatically calculate:
 
----
+  * Total Income
+  * Total Expenses
+  * Net Balance
 
-## Keyboard Navigation Map
+## 2️⃣ Budget Cap System
 
-| Key / Shortcut | Action |
-|---|---|
-| `Tab` | Move focus forward |
-| `Shift+Tab` | Move focus backward |
-| `Enter` / `Space` | Activate button or link |
-| `Escape` | Close modal / close mobile sidebar |
-| `Enter` (on form) | Submit form |
-| Arrow keys | Navigate select dropdowns |
-| `Tab` to skip link | Jump to main content (first Tab press) |
+* Set a spending limit
+* Automatically compare expenses to budget
+* Clear budget functionality
+* Real-time UI updates
 
-All interactive elements have **visible focus rings** (2px gold outline).
+## 3️⃣ Profile Settings
 
----
+* User name validation
+* Persistent name storage
+* Personalized dashboard greeting
 
-## Accessibility Notes
+## 4️⃣ Currency Display & Conversion
 
-- Semantic HTML5 landmarks: `<header>`, `<nav>`, `<main>`, `<section>`, `<footer>`
-- All form `<input>` and `<select>` elements have associated `<label>` elements
-- Skip-to-content link appears on first Tab press
-- ARIA live regions:
-  - `role="alert" aria-live="assertive"` — inline field errors
-  - `role="status" aria-live="polite"` — form success messages, result counts
-  - Budget cap: `polite` when under cap, `assertive` when exceeded
-- `aria-current="page"` on active nav link
-- `aria-expanded` on hamburger button
-- `aria-modal="true"` + `aria-labelledby` on dialog modals
-- `aria-pressed` on case-sensitive search toggle
-- `<mark>` for search highlights (accessible by screen readers)
-- Color contrast: Gold on dark background meets WCAG AA (4.5:1+)
-- No reliance on color alone to convey information
+* Select base currency (RWF, USD, NGN)
+* Convert base currency to one alternate currency
+* Manual exchange rate input
+* Quick currency converter
+* Automatic UI refresh after saving settings
+
+## 5️⃣ Form Validation
+
+* Name validation
+* Budget validation
+* Currency rate validation
+* Accessible error messaging
+
+## 6️⃣ User Experience Enhancements
+
+* Toast notifications
+* Status messages
+* Accessible ARIA live regions
+* Clean, minimal UI design
 
 ---
 
-## File Structure
+# 🏗️ Tech Stack
+
+* HTML5
+* CSS3
+* Vanilla JavaScript (ES Modules)
+* LocalStorage API
+
+No external frameworks or libraries are used.
+
+---
+
+# 📂 Project Structure
 
 ```
 finance-tracker/
-├── index.html          # Main HTML (all pages/sections)
-├── tests.html          # Regex validation test suite
-├── seed.json           # 12 diverse seed records
-├── README.md           # This file
+│
+├── index.html
+├── settings.html
+│
 ├── styles/
-│   ├── main.css        # Design system, base, layout
-│   ├── components.css  # UI components, animations
-│   └── responsive.css  # Mobile-first breakpoints
-└── scripts/
-    ├── app.js          # Main entry — navigation, events, wiring
-    ├── state.js        # App state management
-    ├── storage.js      # localStorage + import/export
-    ├── ui.js           # Rendering functions
-    └── validators.js   # All regex rules + highlight/escape utils
+│   ├── base.css
+│   ├── layout.css
+│   ├── components.css
+│   └── variables.css
+│
+├── scripts/
+│   ├── app.js              # Main application controller
+│   ├── ui.js               # Rendering and UI utilities
+│   ├── storage.js          # LocalStorage logic
+│   ├── validators.js       # Form validation logic
+│   ├── currency.js         # Currency conversion logic
+│   └── utils.js            # Shared helpers
+│
+└── README.md
 ```
 
 ---
 
-## Running Tests
+# 🧠 Architecture Overview
 
-1. Open `tests.html` in a browser (must be served, not `file://` due to ES modules)
-2. A local server is recommended:
-   ```bash
-   npx serve .
-   # or
-   python3 -m http.server 3000
-   ```
-3. Navigate to `http://localhost:3000/tests.html`
+The application follows a modular pattern:
+
+## app.js
+
+* Entry point
+* Event listeners
+* Navigation handling
+* Coordinates modules
+
+## ui.js
+
+* Renders dashboard statistics
+* Renders transaction table
+* Formats currency display
+* Shows toasts and status messages
+
+## storage.js
+
+* Handles LocalStorage read/write
+* Manages transactions
+* Manages user settings
+
+## validators.js
+
+Contains reusable validation functions:
+
+* validateName()
+* validateBudgetCap()
+* validateRate()
+
+## currency.js
+
+* Stores base and alternate currencies
+* Applies exchange rate
+* Performs conversions
 
 ---
 
-## Importing Seed Data
+# 💾 Data Storage
 
-1. Go to **Settings** → **Data Management**
-2. Click **Import JSON**
-3. Select `seed.json` from the project folder
-4. 12 diverse records will be loaded instantly
+All application data is stored in LocalStorage.
 
----
+Example structure:
 
-## Deployment
-
-Deployed via **GitHub Pages** — see the live URL at the top of this README.
-
-To deploy your own:
-```bash
-git init
-git add .
-git commit -m "Initial commit"
-git remote add origin https://github.com/success85/student_finance_tracker.git
-git push -u origin main
-# Enable GitHub Pages in repo Settings → Pages → main branch
+```
+{
+  userName: "John",
+  budgetCap: 500,
+  baseCurrency: "RWF",
+  altCurrency: "USD",
+  rate: 0.00078,
+  transactions: [
+    {
+      id: "abc123",
+      type: "income",
+      amount: 200000,
+      category: "Salary",
+      date: "2026-02-01"
+    }
+  ]
+}
 ```
 
 ---
 
-## Academic Integrity
+# 💱 Currency Conversion Logic
 
-All UI, logic, and design is original work. No external libraries, frameworks, or Bootstrap used. Accessibility patterns referenced from MDN Web Docs and WCAG 2.1 guidelines.
+Conversion formula:
+
+```
+convertedAmount = baseAmount × rate
+```
+
+Example:
+
+If base = RWF
+If alt = USD
+If rate = 0.00078
+
+Then:
+
+```
+200 RWF × 0.00078 = 0.156 USD
+```
+
+---
+
+# 📊 Dashboard Calculations
+
+The system automatically calculates:
+
+* Total Income
+* Total Expenses
+* Net Balance
+* Remaining Budget
+
+All values are formatted based on the selected base currency.
+
+---
+
+# ♿ Accessibility
+
+* ARIA live regions for dynamic updates
+* Clear form error messages
+* Semantic HTML structure
+* Accessible status notifications
+
+---
+
+# 🛠️ Setup Instructions
+
+1. Clone the repository:
+
+```
+git clone https://github.com/Success85/student_finance_tracker.git
+```
+
+2. Navigate into the project folder:
+
+```
+cd finance-tracker
+```
+
+3. Open `index.html` in your browser.
+
+No backend or server setup required.
+
+---
+
+# 🧪 Testing Checklist
+
+* [ ] Add income transaction
+* [ ] Add expense transaction
+* [ ] Delete transaction
+* [ ] Set budget cap
+* [ ] Clear budget cap
+* [ ] Change base currency
+* [ ] Save currency rate
+* [ ] Test quick converter
+* [ ] Refresh page and verify persistence
+
+---
+
+# 🔮 Future Improvements
+
+* Automatic exchange rate API integration
+* Data visualization charts
+* Dark mode toggle
+* CSV export feature
+* Monthly reports
+* Backend integration
+* User authentication
+
+---
+
+# 📐 Wireframe
+
+Add your wireframe link here:
+
+[Wireframe Link](https:)
+
+---
+
+# 🎥 Demo Video
+
+[Demo Video Link](https://)
+
+---
+
+# 👤 Author
+
+Success Ituma
+SOftware Engineer
