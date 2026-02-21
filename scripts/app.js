@@ -441,6 +441,23 @@ function handleExport() {
   showToast(`Exported ${txns.length} transactions.`, 'success');
 }
 
+// function handleImport(file) {
+//   if (!file) return;
+//   const reader = new FileReader();
+//   reader.onload = (e) => {
+//     const { transactions, settings, error } = importJSON(e.target.result);
+//     if (error) {
+//       showToast(`Import failed: ${error}`, 'error');
+//       return;
+//     }
+//     replaceAllTransactions(transactions);
+//     if (settings) updateSettings(settings);
+//     renderAll();
+//     showToast(`Imported ${transactions.length} transactions!`, 'success');
+//   };
+//   reader.readAsText(file);
+// }
+
 function handleImport(file) {
   if (!file) return;
   const reader = new FileReader();
@@ -450,10 +467,31 @@ function handleImport(file) {
       showToast(`Import failed: ${error}`, 'error');
       return;
     }
-    replaceAllTransactions(transactions);
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const valid = transactions.filter(tx => {
+      const txDate = new Date(tx.date);
+      return txDate <= today;
+    });
+
+    const skipped = transactions.length - valid.length;
+
+    if (valid.length === 0) {
+      showToast('No valid transactions to import some records are future-dated.', 'error');
+      return;
+    }
+
+    replaceAllTransactions(valid);
     if (settings) updateSettings(settings);
     renderAll();
-    showToast(`Imported ${transactions.length} transactions!`, 'success');
+
+    if (skipped > 0) {
+      showToast(`Imported ${valid.length} transactions. ${skipped} future-dated record${skipped > 1 ? 's' : ''} skipped.`, 'info');
+    } else {
+      showToast(`Imported ${valid.length} transactions!`, 'success');
+    }
   };
   reader.readAsText(file);
 }
