@@ -10,6 +10,7 @@
 - [Features](#features)
 - [Project Structure](#project-structure)
 - [Architecture Overview](#architecture-overview)
+- [Regex & Validation Catalog](#regex--validation-catalog)
 - [Getting Started](#getting-started)
 - [Usage Guide](#usage-guide)
 - [Currency & Conversion](#currency--conversion)
@@ -146,6 +147,70 @@ Thin wrapper around Chart.js. Creates donut, bar, line, and sparkline instances.
 Reusable validation functions for all form fields — `validateDescription()`, `validateBudgetCap()`, `validateRate()`. Includes regex-powered search compilation, HTML escaping to prevent XSS, and malicious input detection.
 
 ---
+---
+
+## Regex & Validation Catalog
+
+All validation logic lives in `scripts/validator.js`. Below is a reference of every regex pattern, what it matches, and where it is used.
+
+### Core Patterns
+
+| Constant | Pattern | Purpose |
+|---|---|---|
+| `RE_DESCRIPTION` | `/^\S(?:.*\S)?$/` | Ensures description does not start or end with whitespace |
+| `RE_AMOUNT` | `/^\d+(\.\d{1,2})?$/` | Digits only, optional 1–2 decimal places — no letters or symbols |
+| `RE_DATE` | `/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/` | Strict `YYYY-MM-DD` format with valid month and day ranges |
+| `RE_CATEGORY` | `/^[A-Za-z]+(?:[ -][A-Za-z]+)*$/` | Letters only, with optional spaces or hyphens between words |
+| `RE_DUPLICATE_WORD` | `/\b(\w+)\s+\1\b/i` | Back-reference catches repeated consecutive words (e.g. `"the the"`) |
+| `RE_RATE` | `/^\d+(\.\d{1,6})?$/` | Positive decimal up to 6 places — used for exchange rate inputs |
+
+---
+
+### Security — Blocked Patterns (`BLOCKED_PATTERNS`)
+
+Checked on every text input via `detectMalicious()`. Returns an error message on first match.
+
+| Category | Example Match | Blocked Because |
+|---|---|---|
+| HTML / tag injection | `<script>`, `<iframe>`, `<img>` | Prevents XSS via injected markup |
+| JS protocol | `javascript:alert(1)` | Blocks inline script execution |
+| VBScript / data URIs | `vbscript:`, `data:` | Blocks alternative script and data injection vectors |
+| Event handlers | `onclick=`, `onerror=` | Prevents DOM event-based script execution |
+| Shell commands | `rm`, `sudo`, `curl`, `eval`, `exec` | Blocks terminal command injection |
+| Shell operators | `\|`, `&`, `;`, `` ` ``, `$`, `(`, `)` | Strips shell metacharacters |
+| SQL injection | `'`, `--`, `DROP`, `SELECT`, `UNION` | Prevents SQL injection patterns |
+| JS globals | `alert()`, `console.`, `document.`, `window.` | Blocks browser API abuse |
+| Path traversal | `../../`, `%2e%2e` | Prevents directory traversal attempts |
+| Encoded attacks | `%3c`, `%3e`, `&#x`, `&#0` | Blocks URL/HTML-encoded injection |
+
+---
+
+### Exported Validation Functions
+
+| Function | Validates | Key Rules |
+|---|---|---|
+| `validateDescription(val)` | Transaction description | Required, ≤100 chars, trimmed, no malicious content |
+| `validateAmount(val)` | Transaction amount | Required, numbers only, no letters or symbols, >0, ≤1,000,000,000 |
+| `validateDate(val)` | Transaction date | Required, `YYYY-MM-DD` format, cannot be in the future |
+| `validateCategory(val)` | Transaction category | Required, letters/spaces/hyphens only, no malicious content |
+| `validateName(val)` | User profile name | Required, 2–50 chars, letters/spaces/hyphens/apostrophes only |
+| `validateRate(val)` | Currency exchange rate | Required, positive decimal, numbers only |
+| `validateBudgetCap(val)` | Monthly budget cap | Optional — if provided must be a positive number |
+| `validateTransaction(data)` | Full transaction object | Runs all four field validators, returns `errors` object |
+| `checkDuplicateWords(val)` | Any text field | Warns if the same word appears twice consecutively |
+
+---
+
+### Utility Functions
+
+| Function | Purpose |
+|---|---|
+| `compileRegex(input, flags)` | Safely compiles user search input into a `RegExp` — returns `null` on invalid pattern instead of throwing |
+| `highlightMatches(text, re)` | Wraps regex matches in `<mark>` tags for search highlighting in the transaction list |
+| `escapeHtml(str)` | Escapes `&`, `<`, `>`, `"`, `'`, `/` before inserting any user content into the DOM |
+| `sanitize(str)` | Strips HTML tags, JS/VBScript protocols, event handlers, and shell operators before saving to state |
+```
+```
 
 ## Getting Started
 
@@ -355,9 +420,11 @@ Use `tests.html` for structured QA. Manual test cases:
 
 ## Wireframe & Demo
 
-**Wireframe:** [View Wireframe](https://your-wireframe-link-here)
+**Wireframe:** [View Wireframe](https://)
 
-**Demo Video:** [Watch Demo](https://your-demo-link-here)
+**Demo Video:** [Watch Demo](https://)
+
+**Live Page:** [Watch Demo](https://https://success85.github.io/student_finance_tracker)
 
 ---
 

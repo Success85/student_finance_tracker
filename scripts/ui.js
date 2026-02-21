@@ -338,8 +338,6 @@ function renderMobileCards(txns, re) {
           </div>
           <div>
             <div class="trans-card-amount ${tx.type}">${fmtSigned(tx.amount, tx.type)}</div>
-            <span class="type-badge ${tx.type}" style="font-size:0.65rem">
-              ${tx.type === 'income' ? '↑' : '↓'} ${tx.type}
             </span>
           </div>
         </div>
@@ -546,7 +544,7 @@ function getMonthlyData() {
 export function renderAll() {
   renderStats();
   renderHomeStats();
-  renderChart();
+  // renderChart();
   renderRecentList();
   renderTable();
   renderCategoryFilter();

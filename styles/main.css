@@ -1336,6 +1336,7 @@ mark { background: var(--accent-glow); color: var(--accent); border-radius: 2px;
   border-radius: 8px;
   flex-shrink: 0;
 }
+/* Modal form and message design */
 
 .modal-backdrop {
   position: fixed;
@@ -1344,9 +1345,9 @@ mark { background: var(--accent-glow); color: var(--accent); border-radius: 2px;
   backdrop-filter: blur(4px);
   z-index: 500;
   display: flex;
-  align-items: center;
-    justify-content: center; 
-  padding: 0;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0 12px;
   animation: fadeIn 200ms var(--ease);
 }
 
@@ -1360,6 +1361,7 @@ mark { background: var(--accent-glow); color: var(--accent); border-radius: 2px;
   max-width: 100%;
   max-height: 90vh;
   overflow-y: auto;
+  overflow-x: hidden;
   box-shadow: var(--shadow-lg);
   animation: slideUp 220ms var(--ease);
 }
@@ -1372,14 +1374,16 @@ mark { background: var(--accent-glow); color: var(--accent); border-radius: 2px;
   background: var(--bg-3);
   border-radius: var(--radius-sm);
   padding: 3px;
+  flex-shrink: 1;
+  min-width: 0;
 }
 
 .type-toggle-btn {
   background: transparent;
   border: none;
-  padding: 7px 14px;
+  padding: 6px 10px;
   border-radius: var(--radius-sm);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 600;
   cursor: pointer;
   transition: all var(--dur);
@@ -1387,6 +1391,7 @@ mark { background: var(--accent-glow); color: var(--accent); border-radius: 2px;
   font-family: var(--font-body);
   flex: 1;
   text-align: center;
+  white-space: nowrap;
 }
 
 .type-toggle-btn.active {
@@ -1404,11 +1409,36 @@ mark { background: var(--accent-glow); color: var(--accent); border-radius: 2px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 20px;
+  padding: 16px 20px;
   border-bottom: 1px solid var(--border);
+  gap: 8px;
+  min-width: 0;
+  overflow: hidden;
 }
 
-.modal-header h2 { font-size: 1.1rem; }
+.add-modal-header {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.add-modal-header .modal-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 8px;
+}
+
+.modal-header h2 {
+  font-size: 1rem;
+  flex-shrink: 1;
+  min-width: 0;
+  font-size: 0.9rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 .modal-close {
   background: none;
@@ -1419,6 +1449,7 @@ mark { background: var(--accent-glow); color: var(--accent); border-radius: 2px;
   padding: 4px 8px;
   border-radius: var(--radius-sm);
   transition: color var(--dur);
+  flex-shrink: 0;
 }
 
 .modal-close:hover { color: var(--text); }
@@ -1440,6 +1471,7 @@ mark { background: var(--accent-glow); color: var(--accent); border-radius: 2px;
   border-top: 1px solid var(--border);
 }
 
+/* Setting section design */
 .settings-wrap { max-width: 100%; }
 
 .settings-grid {
@@ -1566,11 +1598,15 @@ kbd {
   flex-shrink: 0;
 }
 
+/* The chart section and card design */
 .charts-section {
   display: grid;
   grid-template-columns: 1fr;
   gap: 16px;
   margin-bottom: 24px;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .chart-card {
@@ -1579,6 +1615,15 @@ kbd {
   border-radius: var(--radius-lg);
   padding: 20px;
   transition: transform var(--dur), box-shadow var(--dur);
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.chart-card canvas {
+  max-width: 100%;
+  display: block;
 }
 
 .chart-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
@@ -1612,8 +1657,17 @@ kbd {
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 20px;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
+.chart-card2 canvas {
+  max-width: 100%;
+  display: block;
+}
+/* The app footer section design */
 .app-footer {
   margin-left: 0;
   padding: 14px 16px;

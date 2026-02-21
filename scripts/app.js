@@ -601,7 +601,7 @@ function setDefaultDates() {
   });
 }
 
-initTheme(); 
+initTheme();
 initState();
 renderAll();
 setDefaultDates();
@@ -615,11 +615,11 @@ if (pages.includes(initialHash)) {
 }
 
 // Cals the renderCharts on the dashboard page to render the charts when the page loads.
-if (pageId === 'dashboard') { 
-  renderStats(); 
-  renderChart(); 
-  renderTable(); 
-  renderCategoryFilter(); 
+if (pageId === 'dashboard') {
+  renderStats();
+  renderCharts();
+  renderTable();
+  renderCategoryFilter();
   renderDashboardWelcome();
-  renderCharts(); 
+
 }

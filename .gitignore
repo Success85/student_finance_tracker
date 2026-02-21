@@ -1,0 +1,17 @@
+#Keep the .gitignore minimal because this is a pure vanilla HTML, CSS, and JS project.  And there's no npm or build tools
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Editor — VS Code
+.vscode/
+
+# Editor — JetBrains (WebStorm)
+.idea/
+
+# Logs
+*.log
